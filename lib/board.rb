@@ -5,8 +5,7 @@ class Board
     create_fields
   end
 
-  def get(col, row)
-    position = Position.new(col, row)
+  def get(position)
     @fields.find { |field| field.col == position.letter && field.row == position.number }
   end
 
