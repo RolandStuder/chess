@@ -18,4 +18,8 @@ class Position
     @letter = letter
     @number = number.to_i
   end
+
+  def ==(other)
+    letter == other.letter && number == other.number
+  end
 end
