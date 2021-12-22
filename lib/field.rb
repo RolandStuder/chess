@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
+# Field is a cell on the board, that can hold pieces
 class Field
   attr_reader :row, :col
+  attr_accessor :piece
+
   def initialize(col, row, color: :white)
     @row = row
     @col = col

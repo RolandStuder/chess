@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# ValueObject to refer to a field on a board
 class Position
   attr :letter, :number
 
