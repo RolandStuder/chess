@@ -6,14 +6,15 @@ class Board
   end
 
   def get(col, row)
-    @fields.find { |field| field.col.downcase == col.downcase && field.row.to_s == row.to_s }
+    position = Position.new(col, row)
+    @fields.find { |field| field.col == position.letter && field.row == position.number }
   end
 
   private
 
   def create_fields
     @fields = (1..8).map.with_index do |row, row_index|
-      ("a".."h").map.with_index do |col, col_index|
+      ("A".."H").map.with_index do |col, col_index|
         color = (col_index % 2 + row_index % 2) % 2 == 1 ? :white : :black
         Field.new(col, row, color: color)
       end
