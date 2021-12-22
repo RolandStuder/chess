@@ -22,7 +22,8 @@ Implemented in Ruby
   * King
   * Queen
 * Display
-* (Field)
+* Field
+* Position
 * (PromptForMove)
 * (Reserve) for pieces that are out
 
@@ -73,3 +74,7 @@ legal_moves
 ````
 
 
+
+## TODO:
+
+* add 5D blindfolded variante for @timato
