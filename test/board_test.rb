@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# ruby -Ilib:test test/board_test.rb
 require "minitest/autorun"
 require_relative '../main'
 

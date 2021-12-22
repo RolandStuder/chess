@@ -23,7 +23,7 @@ class Board
   def create_fields
     @fields = (1..8).map.with_index do |row, row_index|
       ("A".."H").map.with_index do |col, col_index|
-        color = (col_index % 2 + row_index % 2).odd? ? :white : :black
+        color = ((col_index % 2) + (row_index % 2)).odd? ? :white : :black
         Field.new(col, row, color: color)
       end
     end.flatten

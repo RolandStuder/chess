@@ -1,2 +1,5 @@
 StringLiterals:
   Enabled: false
+
+AllCops:
+  NewCops: enable
