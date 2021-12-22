@@ -4,11 +4,19 @@ require "minitest/autorun"
 
 module Move
   class HorizontalTest < Minitest::Test
-    def test_returns_unhindered_positions
-      move = Move::Horizontal.new
+    def test_legal_move_blocked_by_other_piece
+      board = Board.new
 
-      legal_end_positions = %w[A3 B3 C3 E3 F3 G3 H3].map { |p| Position.parse(p) } # without D4
-      assert_equal legal_end_positions, move.unhindered_legal_end_positions("D3")
+      move = Move::Horizontal.new
+      assert_includes move.legal_moves(board, "C1"), Position.parse("A1")
+
+      board.place(Piece.new, "B1")
+      assert !move.legal_moves(board, "C1").include?(Position.parse("A1"))
+
+      assert_includes move.legal_moves(board, "C1"), Position.parse("H1")
+
+      board.place(Piece.new, "F1")
+      assert !move.legal_moves(board, "C1").include?(Position.parse("H1"))
     end
   end
 end
