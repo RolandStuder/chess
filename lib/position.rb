@@ -5,7 +5,7 @@ class Position
   attr :letter, :number
 
   def self.parse(input)
-    return input.map { |pos| Position.parse(pos)} if input.is_a? Array
+    return input.map { |pos| Position.parse(pos) } if input.is_a? Array
     return input if input.is_a? Position
 
     letter = input.strip.chars[0].upcase
@@ -25,13 +25,13 @@ class Position
   # all positions to the left, sorted by closest
   def positions_to_the_left
     index = ("A".."H").find_index(letter)
-    ("A".."H").first(index).map { |l| Position.new(l, number)}.reverse
+    ("A".."H").first(index).map { |l| Position.new(l, number) }.reverse
   end
 
   # all positions to the left, sorted by closest
   def positions_to_the_right
     index = ("A".."H").find_index(letter)
-    ("A".."H").last(7 - index).map { |l| Position.new(l, number)}
+    ("A".."H").last(7 - index).map { |l| Position.new(l, number) }
   end
 
   def ==(other)

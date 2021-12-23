@@ -21,10 +21,10 @@ class PositionTest < Minitest::Test
   end
 
   def test_positions_to_the_left
-    assert_equal Position.parse(["B4", "A4"]), Position.parse("C4").positions_to_the_left
+    assert_equal Position.parse(%w[B4 A4]), Position.parse("C4").positions_to_the_left
   end
 
   def test_positions_to_the_right
-    assert_equal Position.parse(["G4", "H4"]), Position.parse("F4").positions_to_the_right
+    assert_equal Position.parse(%w[G4 H4]), Position.parse("F4").positions_to_the_right
   end
 end
