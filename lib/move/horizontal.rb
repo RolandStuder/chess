@@ -12,31 +12,31 @@ module Move
     end
 
     def legal_moves
-      legal_left_moves + legal_right_moves
+      legal_moves_from(position.positions_to_the_left) +
+        legal_moves_from(position.positions_to_the_right)
     end
 
     private
 
-    def legal_left_moves
+    def legal_moves_from(positions)
       legals = []
-      position.positions_to_the_left.each do |to_the_left|
-        other_piece = board.get(to_the_left).piece
-        break if other_piece && other_piece.color == piece.color
-        legals << to_the_left
-        break if other_piece && other_piece.color != piece.color
+      positions.each do |target_position|
+        break if occupied_by_friend?(target_position)
+
+        legals << target_position
+        break if occupied_by_enemy?(target_position)
       end
       legals
     end
 
-    def legal_right_moves
-      legals = []
-      position.positions_to_the_right.map do |to_the_right|
-        other_piece = board.get(to_the_right).piece
-        break if other_piece && other_piece.color == piece.color
-        legals << to_the_right
-        break if other_piece && other_piece.color != piece.color
-      end
-      legals
+    def occupied_by_friend?(target_position)
+      other_piece = board.get(target_position).piece
+      other_piece && other_piece.color == piece.color
+    end
+
+    def occupied_by_enemy?(target_position)
+      other_piece = board.get(target_position).piece
+      other_piece && other_piece.color != piece.color
     end
   end
 end

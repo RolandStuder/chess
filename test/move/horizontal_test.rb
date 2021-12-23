@@ -18,11 +18,9 @@ module Move
     def test_legal_move_blocked_by_enemy_piece_to_the_right
       board = Board.new
       board.place(Rook.new(:black), "C1")
-
       move = Move::Horizontal.new(board, "C1")
-
-      assert_includes move.legal_moves, Position.parse("H1")
       board.place(Piece.new(:white), "F1")
+
       assert_includes move.legal_moves, Position.parse("F1")
       assert !move.legal_moves.include?(Position.parse("H1"))
     end
