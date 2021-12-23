@@ -2,7 +2,9 @@
 
 # Base class for chess pieces
 class Piece
-  def initialize(color: :white)
+  attr_reader :color
+
+  def initialize(color = :white)
     @color = color
   end
 end
