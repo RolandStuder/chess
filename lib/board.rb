@@ -21,7 +21,7 @@ class Board
     piece = get(position).piece
     piece.move_types.map do |type|
       type.new(self, position).legal_moves
-    end
+    end.flatten
   end
 
   private
