@@ -3,15 +3,20 @@
 module Move
   # unlimited horizontal movement for a piece
   class Horizontal
-    def legal_moves(board, position)
-      position = Position.parse(position)
+    attr_reader :board, :position
 
-      legal_left_moves(board, position) + legal_right_moves(board, position)
+    def initialize(board, position)
+      @board = board
+      @position = Position.parse(position)
+    end
+
+    def legal_moves
+      legal_left_moves + legal_right_moves
     end
 
     private
 
-    def legal_left_moves(board, position)
+    def legal_left_moves
       legals = []
       position.positions_to_the_left.each do |to_the_left|
         legals << to_the_left
@@ -20,7 +25,7 @@ module Move
       legals
     end
 
-    def legal_right_moves(board, position)
+    def legal_right_moves
       legals = []
       position.positions_to_the_right.map do |to_the_right|
         legals << to_the_right

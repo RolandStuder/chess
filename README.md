@@ -73,7 +73,10 @@ color
 legal_moves
 ````
 
+## Questions
 
+- Should Move::Horizontal actually be a Class or a Module, I can instantiate moves from a position, I guess
+  so the position and board can be referenced in an instance. 
 
 ## TODO:
 
