@@ -19,4 +19,22 @@ class BoardTest < Minitest::Test
 
     assert_kind_of Piece, board.get("A1").piece
   end
+
+  def test_move_a_piece
+    board = Board.new
+    piece = Rook.new
+    board.place(piece, "A1")
+    board.move("A1", "A8")
+
+    assert board.get("A1").empty?
+    assert_equal piece, board.get("A8").piece
+  end
+
+  def test_board_raises_error_on_illegal_move
+    board = Board.new
+    piece = Rook.new
+    board.place(piece, "A1")
+
+    assert_raises { board.move("A1", "B2") }
+  end
 end

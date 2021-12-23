@@ -24,6 +24,17 @@ class Board
     end.flatten
   end
 
+  def move(origin, target)
+    origin = Position.parse(origin)
+    target = Position.parse(target)
+
+    origin_field = get(origin)
+    raise "Illegal move" unless legal_moves_for(origin).include? target
+    piece = origin_field.piece
+    get(target).piece = piece
+    origin_field.piece = nil
+  end
+
   private
 
   def create_fields

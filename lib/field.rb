@@ -11,6 +11,10 @@ class Field
     @color = color
   end
 
+  def empty?
+    piece.nil?
+  end
+
   def white?
     @color == :white
   end
