@@ -8,3 +8,4 @@ require_relative 'lib/piece/rook'
 
 require_relative 'lib/move/base'
 require_relative 'lib/move/horizontal'
+require_relative 'lib/move/vertical'
