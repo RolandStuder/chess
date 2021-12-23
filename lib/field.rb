@@ -15,6 +15,10 @@ class Field
     piece.nil?
   end
 
+  def occupied?
+    !empty?
+  end
+
   def white?
     @color == :white
   end

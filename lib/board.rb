@@ -4,8 +4,11 @@ require_relative 'field'
 
 # Board serves to keep the sate, of where all the pieces are
 class Board
+  attr_reader :captured_pieces
+
   def initialize
     create_fields
+    @captured_pieces = []
   end
 
   def get(position)
@@ -29,13 +32,23 @@ class Board
     target = Position.parse(target)
 
     origin_field = get(origin)
+    target_field = get(target)
     raise "Illegal move" unless legal_moves_for(origin).include? target
+
     piece = origin_field.piece
+    capture(target_field)
     get(target).piece = piece
     origin_field.piece = nil
   end
 
   private
+
+  def capture(target_field)
+    return false if target_field.empty?
+
+    @captured_pieces << target_field.piece
+    target_field.piece = nil
+  end
 
   def create_fields
     @fields = (1..8).map.with_index do |row, row_index|

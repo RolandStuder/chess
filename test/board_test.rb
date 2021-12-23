@@ -37,4 +37,16 @@ class BoardTest < Minitest::Test
 
     assert_raises { board.move("A1", "B2") }
   end
+
+  def test_capture_a_piece
+    board = Board.new
+    piece = Rook.new(:white)
+    other_piece = Piece.new(:black)
+    board.place(piece, "A1")
+    board.place(other_piece, "A2")
+
+    board.move("A1", "A2")
+    assert_includes board.captured_pieces, other_piece
+    assert_equal piece, board.get("A2").piece
+  end
 end
