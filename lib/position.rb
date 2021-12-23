@@ -27,38 +27,38 @@ class Position
 
   # all positions to the left, sorted by closest
   def positions_to_the_left
-    COLUMNS.first(column_index).map { |l| Position.new(l, number) }.reverse
+    collect_positions(:left)
   end
 
   # all positions to the right, sorted by closest
   def positions_to_the_right
-    COLUMNS.last(7 - column_index).map { |l| Position.new(l, number) }
+    collect_positions(:right)
   end
 
   # all positions up, sorted by closest
   def positions_upwards
-    ((number + 1)..ROWS.last).map { |n| Position.new(letter, n) }
+    collect_positions(:up)
   end
 
   # all positions down, sorted by closest
   def positions_downwards
-    (ROWS.first..(number - 1)).map { |n| Position.new(letter, n) }.reverse
+    collect_positions(:down)
   end
 
   def positions_up_left
-    diagonal_positions(:up, :left)
+    collect_positions(:up, :left)
   end
 
   def positions_up_right
-    diagonal_positions(:up, :right)
+    collect_positions(:up, :right)
   end
 
   def positions_down_left
-    diagonal_positions(:down, :left)
+    collect_positions(:down, :left)
   end
 
   def positions_down_right
-    diagonal_positions(:down, :right)
+    collect_positions(:down, :right)
   end
 
   def up
@@ -86,7 +86,7 @@ class Position
   end
 
   # @param directions Array of directions to follow [:up, :left]
-  def follow_directions(directions)
+  def go(*directions)
     new_position = self
     directions.each do |direction|
       break if new_position.nil?
@@ -114,10 +114,11 @@ class Position
     ROWS.find_index(number)
   end
 
-  def diagonal_positions(*commands)
+  # follow the commands :left, :up, and collects all positions on the baord
+  def collect_positions(*commands)
     positions = []
     current_position = self
-    while (current_position = current_position.follow_directions(commands))
+    while (current_position = current_position.go(*commands))
       positions << current_position
     end
     positions
