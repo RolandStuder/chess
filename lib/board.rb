@@ -14,8 +14,14 @@ class Board
   end
 
   def place(piece, position)
-    position = Position.parse(position) if position.is_a? String
     get(position).piece = piece
+  end
+
+  def legal_moves_for(position)
+    piece = get(position).piece
+    piece.move_types.map do |type|
+      type.new(self, position).legal_moves
+    end
   end
 
   private
