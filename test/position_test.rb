@@ -27,4 +27,12 @@ class PositionTest < Minitest::Test
   def test_positions_to_the_right
     assert_equal Position.parse(%w[G4 H4]), Position.parse("F4").positions_to_the_right
   end
+
+  def test_positions_upwards
+    assert_equal Position.parse(%w[G7 G8]), Position.parse("G6").positions_upwards
+  end
+
+  def test_positions_downwards
+    assert_equal Position.parse(%w[G2 G1]), Position.parse("G3").positions_downwards
+  end
 end

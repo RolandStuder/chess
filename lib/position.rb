@@ -28,10 +28,20 @@ class Position
     ("A".."H").first(index).map { |l| Position.new(l, number) }.reverse
   end
 
-  # all positions to the left, sorted by closest
+  # all positions to the right, sorted by closest
   def positions_to_the_right
     index = ("A".."H").find_index(letter)
     ("A".."H").last(7 - index).map { |l| Position.new(l, number) }
+  end
+
+  # all positions up, sorted by closest
+  def positions_upwards
+    ((number+1)..(8)).map { |n| Position.new(letter, n) }
+  end
+
+  # all positions down, sorted by closest
+  def positions_downwards
+    (1..(number-1)).map { |n| Position.new(letter, n) }.reverse
   end
 
   def ==(other)
