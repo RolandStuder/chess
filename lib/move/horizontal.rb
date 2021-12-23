@@ -2,15 +2,7 @@
 
 module Move
   # unlimited horizontal movement for a piece
-  class Horizontal
-    attr_reader :board, :position, :piece
-
-    def initialize(board, position)
-      @board = board
-      @position = Position.parse(position)
-      @piece = board.get(position).piece
-    end
-
+  class Horizontal < Base
     def legal_moves
       legal_moves_from(position.positions_to_the_left) +
         legal_moves_from(position.positions_to_the_right)
