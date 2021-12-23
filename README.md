@@ -57,22 +57,6 @@ like (`Pawn::MoveValidator`)
 
 Ok, but let's get out of analysis and just play around a bit, to get a sense of the Board API
 
-## Board API
-
-````ruby
-print
-legal_move?(a,b)
-move(a,b)
-checkmate?
-````
-
-## Piece API
-````ruby
-position
-color
-legal_moves
-````
-
 ## Questions
 
 - Should Move::Horizontal actually be a Class or a Module, I can instantiate moves from a position, I guess
@@ -81,3 +65,9 @@ legal_moves
 ## TODO:
 
 * add 5D blindfolded variante for @timato
+* Refactor horizontal / vertical into Move::Straight
+* I will need to filter the legal moves more, by some rules, like
+  * cannot move away if it creates check
+  * cannot move away unless prevents existing check situation
+  * so the base class needs function, that further removes options, something like
+    `filter_from_general_rules(posititions)``

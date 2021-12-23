@@ -33,5 +33,9 @@ module Move
       other_piece = board.get(target_position).piece
       other_piece && other_piece.color != piece.color
     end
+
+    def without_illegal_moves(moves)
+      moves.reject { |target_position| occupied_by_friend?(target_position) }
+    end
   end
 end
