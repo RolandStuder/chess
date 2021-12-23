@@ -51,10 +51,4 @@ class Position
   def ===(other)
     letter == other.letter && number == other.number
   end
-
-  # manhatten distance to other position
-  def distance_to(other)
-    other = Position.parse(other)
-    (number - other.number).abs + (letter.ord - other.letter.ord).abs
-  end
 end

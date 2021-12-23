@@ -15,11 +15,6 @@ class PositionTest < Minitest::Test
     assert_equal [Position.parse("G5")], [Position.parse("G5")]
   end
 
-  def test_distance_to_other_position
-    assert_equal 2, Position.parse("B2").distance_to("A1")
-    assert_equal 12, Position.parse("B2").distance_to("H8")
-  end
-
   def test_positions_to_the_left
     assert_equal Position.parse(%w[B4 A4]), Position.parse("C4").positions_to_the_left
   end
