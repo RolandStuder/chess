@@ -11,7 +11,7 @@ class Board
 
   def get(position)
     position = Position.parse(position) if position.is_a? String
-    @squares.find { |square| square.col == position.letter && square.row == position.number }
+    @squares.find { |square| square.position == position }
   end
 
   def place(piece, position)
@@ -53,7 +53,7 @@ class Board
     @squares = (1..8).map.with_index do |row, row_index|
       ("A".."H").map.with_index do |col, col_index|
         color = ((col_index % 2) + (row_index % 2)).odd? ? :white : :black
-        Square.new(col, row, color: color)
+        Square.new(col+row.to_s, color: color)
       end
     end.flatten
   end

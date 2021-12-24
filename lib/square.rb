@@ -2,13 +2,12 @@
 
 # Square is a cell on the board, that can hold pieces
 class Square
-  attr_reader :row, :col
+  attr_reader :position
   attr_accessor :piece
 
-  def initialize(col, row, color: :white)
-    @row = row
-    @col = col
+  def initialize(position, color: :white)
     @color = color
+    @position = Position.parse(position)
   end
 
   def empty?
