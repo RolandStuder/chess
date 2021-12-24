@@ -6,7 +6,7 @@ module Move
   class KnightTest < Minitest::Test
     def test_knight_move
       board = Board.new
-      board.place(::Knight.new(:black), "C1")
+      board.place(Piece.new(:black), "C1")
       move = Move::Knight.new(board, "C1")
 
       assert_includes move.legal_moves, Position.parse("D3")
