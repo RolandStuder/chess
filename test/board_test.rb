@@ -49,4 +49,13 @@ class BoardTest < Minitest::Test
     assert_includes board.captured_pieces, other_piece
     assert_equal piece, board.get("A2").piece
   end
+
+  def test_get_black_pieces_from_board
+    board = Board.new
+    board.place(Rook.new(:white), "A1")
+    board.place(Rook.new(:black), "A4")
+
+    assert_equal 1, board.squares_occupied_by(:white).size
+    assert(board.squares_occupied_by(:white).all? { |square| square.piece.white? })
+  end
 end

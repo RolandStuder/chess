@@ -18,6 +18,10 @@ class Square
     !empty?
   end
 
+  def occupied_by?(color)
+    piece && piece.color == color
+  end
+
   def white?
     @color == :white
   end

@@ -40,6 +40,10 @@ class Board
     origin_square.piece = nil
   end
 
+  def squares_occupied_by(color)
+    @squares.select { |square| square&.piece&.color == color }
+  end
+
   private
 
   def capture(target_square)
@@ -53,7 +57,7 @@ class Board
     @squares = (1..8).map.with_index do |row, row_index|
       ("A".."H").map.with_index do |col, col_index|
         color = ((col_index % 2) + (row_index % 2)).odd? ? :white : :black
-        Square.new(col+row.to_s, color: color)
+        Square.new(col + row.to_s, color: color)
       end
     end.flatten
   end
