@@ -7,36 +7,20 @@ Implemented in Ruby
 * Keep public methods to an absolute minimum
 * Try to decouple classes as much as possible
 
-## Models
-
-* Game
-* Player
-* Board
-* MoveHistory
-* (Move)
-* Piece
-  * Pawn
-  * Rook
-  * Bishop
-  * Knight
-  * King
-  * Queen
-* Display
-* Field
-* Position
-* (PromptForMove)
-
-
 ## TODO:
 
-* add 5D blindfolded variante for @timato
+* let board check if there is any check
+* add castling move
+* add en passant
+* do promotion
+* implement display
+* implement game
+* implement player
+* add 5D blindfolded variant for @timato
 * Prevent moves, that set King into check
-* Create Pawn
 * Create move history
-* Create Pawn Moves
-* Create Kind
-* Creat King Moves
-* Maybe: Refactor horizontal / vertical into Move::Straight
+* Implement draw situations
+* refactor field to use position and not row, col
 * I will need to filter the legal moves more, by some rules, like
   * cannot move away if it creates check
   * cannot move away unless prevents existing check situation
