@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# ValueObject to refer to a field on a board
+# ValueObject to refer to a square on a board
 class Position
   COLUMNS = ("A".."H").to_a.freeze
   ROWS = (1..8).to_a.freeze

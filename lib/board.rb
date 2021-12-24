@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
-require_relative 'field'
-
 # Board serves to keep the sate, of where all the pieces are
 class Board
   attr_reader :captured_pieces
 
   def initialize
-    create_fields
+    create_squares
     @captured_pieces = []
   end
 
   def get(position)
     position = Position.parse(position) if position.is_a? String
-    @fields.find { |field| field.col == position.letter && field.row == position.number }
+    @squares.find { |square| square.col == position.letter && square.row == position.number }
   end
 
   def place(piece, position)
@@ -31,31 +29,31 @@ class Board
     origin = Position.parse(origin)
     target = Position.parse(target)
 
-    origin_field = get(origin)
-    target_field = get(target)
+    origin_square = get(origin)
+    target_square = get(target)
     raise "Illegal move" unless legal_moves_for(origin).include? target
 
-    piece = origin_field.piece
+    piece = origin_square.piece
     piece.moved = true
-    capture(target_field)
+    capture(target_square)
     get(target).piece = piece
-    origin_field.piece = nil
+    origin_square.piece = nil
   end
 
   private
 
-  def capture(target_field)
-    return false if target_field.empty?
+  def capture(target_square)
+    return false if target_square.empty?
 
-    @captured_pieces << target_field.piece
-    target_field.piece = nil
+    @captured_pieces << target_square.piece
+    target_square.piece = nil
   end
 
-  def create_fields
-    @fields = (1..8).map.with_index do |row, row_index|
+  def create_squares
+    @squares = (1..8).map.with_index do |row, row_index|
       ("A".."H").map.with_index do |col, col_index|
         color = ((col_index % 2) + (row_index % 2)).odd? ? :white : :black
-        Field.new(col, row, color: color)
+        Square.new(col, row, color: color)
       end
     end.flatten
   end

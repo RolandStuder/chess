@@ -4,7 +4,7 @@ require "minitest/autorun"
 require_relative '../main'
 
 class BoardTest < Minitest::Test
-  def test_get_field_from_board
+  def test_get_square_from_board
     board = Board.new
     assert board.get("A1").black?
     assert board.get("B1").white?

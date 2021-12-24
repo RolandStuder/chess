@@ -20,7 +20,6 @@ Implemented in Ruby
 * Prevent moves, that set King into check
 * Create move history
 * Implement draw situations
-* refactor field to use position and not row, col
 * I will need to filter the legal moves more, by some rules, like
   * cannot move away if it creates check
   * cannot move away unless prevents existing check situation

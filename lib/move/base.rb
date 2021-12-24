@@ -25,7 +25,7 @@ module Move
     end
 
     def occupied?(target_position)
-      board.get(target_position).piece
+      board.get(target_position).occupied?
     end
 
     def occupied_by_friend?(target_position)
