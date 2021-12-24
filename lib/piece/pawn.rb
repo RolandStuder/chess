@@ -3,10 +3,14 @@
 # Rook that can move vertically and horizontally and diagonally
 class Pawn < Piece
   def move_types
+    types = []
     if black?
-      [Move::OneDown]
+      types << Move::OneDown
+      types << Move::TwoDown unless moved?
     else
-      [Move::OneUp]
+      types << Move::OneUp
+      types << Move::TwoUp unless moved?
     end
+    types
   end
 end

@@ -24,6 +24,10 @@ module Move
       legals
     end
 
+    def occupied?(target_position)
+      board.get(target_position).piece
+    end
+
     def occupied_by_friend?(target_position)
       other_piece = board.get(target_position).piece
       other_piece && other_piece.color == piece.color

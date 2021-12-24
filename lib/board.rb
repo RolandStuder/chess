@@ -36,6 +36,7 @@ class Board
     raise "Illegal move" unless legal_moves_for(origin).include? target
 
     piece = origin_field.piece
+    piece.moved = true
     capture(target_field)
     get(target).piece = piece
     origin_field.piece = nil
