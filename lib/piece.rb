@@ -5,6 +5,14 @@ class Piece
   attr_reader :color
 
   def initialize(color = :white)
-    @color = color
+    @color = color.to_sym
+  end
+
+  def black?
+    color == :black
+  end
+
+  def white?
+    color == :white
   end
 end
