@@ -7,9 +7,11 @@ class Pawn < Piece
     if black?
       types << Move::OneDown
       types << Move::TwoDown unless moved?
+      types << Move::DownDiagonalCapture
     else
       types << Move::OneUp
       types << Move::TwoUp unless moved?
+      types << Move::UpDiagonalCapture
     end
     types
   end

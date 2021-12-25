@@ -50,6 +50,8 @@ module Move
     end
 
     def occupied_by_enemy?(target_position)
+      return false if target_position.nil?
+
       other_piece = board.get(target_position).piece
       other_piece && other_piece.color != piece.color
     end
