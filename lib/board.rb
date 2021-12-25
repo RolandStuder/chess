@@ -34,17 +34,16 @@ class Board
   end
 
   def move(origin, target)
-    origin = Position.parse(origin)
-    target = Position.parse(target)
-
-    origin_square = get(origin)
-    target_square = get(target)
-
-    piece = origin_square.piece
-    piece.moved = true
-    capture(target_square)
-    get(target).piece = piece
-    origin_square.piece = nil
+    move_type = find_move_type(origin, target)
+    current_move = move_type.new(self, origin, target)
+    current_move.operations_on_board.each do |operation|
+      case operation[:type]
+      when :capture
+        capture(get(operation[:target]))
+      when :move
+        move_operation(operation[:origin], operation[:target])
+      end
+    end
   end
 
   def squares_occupied_by(color)
@@ -81,6 +80,16 @@ class Board
     target_square.piece = nil
   end
 
+  def move_operation(origin, target)
+    origin_square = get(origin)
+    target_square = get(target)
+
+    piece = origin_square.piece
+    piece.moved = true
+    target_square.piece = piece
+    origin_square.piece = nil
+  end
+
   def create_squares
     @squares = (1..8).map.with_index do |row, row_index|
       ("A".."H").map.with_index do |col, col_index|
@@ -92,5 +101,13 @@ class Board
 
   def find_king(color)
     @squares.find { |square| square.piece == King.new(color) }
+  end
+
+  def find_move_type(origin, _target)
+    origin = Position.parse(origin)
+    types = get(origin).piece.move_types
+    types.find do |type|
+      type.new(self, origin).send(:position_candidates).include?(Position.parse(origin))
+    end || Move::Base
   end
 end

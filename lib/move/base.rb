@@ -3,12 +3,20 @@
 module Move
   # unlimited horizontal movement for a piece
   class Base
-    attr_reader :board, :position, :piece
+    attr_reader :board, :position, :piece, :target
 
-    def initialize(board, position)
+    def initialize(board, position, target = nil)
       @board = board
       @position = Position.parse(position)
+      @target = Position.parse(target)
       @piece = board.get(position).piece
+    end
+
+    def operations_on_board
+      [
+        { type: :capture, target: target },
+        { type: :move, origin: position, target: target }
+      ]
     end
 
     def legal_target_positions

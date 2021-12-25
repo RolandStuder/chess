@@ -18,7 +18,8 @@ class Position
   end
 
   def self.parse(input)
-    return input.map { |pos| Position.parse(pos) } if input.is_a? Array
+    return nil if input.nil?
+    return parse_array(input) if input.is_a? Array
     return input if input.is_a? Position
 
     letter = input.strip.chars[0].upcase
@@ -28,6 +29,10 @@ class Position
     return nil unless ROWS.include? number
 
     new(letter, number)
+  end
+
+  def self.parse_array(array)
+    array.map { |pos| Position.parse(pos) }
   end
 
   def initialize(letter, number)

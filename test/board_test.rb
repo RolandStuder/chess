@@ -77,4 +77,9 @@ class BoardTest < Minitest::Test
     board = Board.from_fen("8/8/6r1/4K1r1/6q1/2b5/3R4/8 w - - 0 1")
     assert board.in_checkmate?(:white)
   end
+
+  def test_get_move_type
+    board = Board.with_setup
+    assert Move::Vertical, board.send(:find_move_type, "C7", "C5")
+  end
 end
