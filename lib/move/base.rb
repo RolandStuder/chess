@@ -12,6 +12,7 @@ module Move
       @piece = board.get(position).piece
     end
 
+    # tells the board what to do after a move
     def operations_on_board
       [
         { type: :capture, target: target },
