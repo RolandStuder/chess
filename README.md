@@ -9,10 +9,11 @@ Implemented in Ruby
 
 ## TODO:
 
-* let board check if there is any check
+* prevent moves that do not remove the existing check
 * add castling move
 * add en passant
-* do promotion
+* do promotion of pawn
+* check for chekmate
 * implement display
 * implement game
 * implement player
