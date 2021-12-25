@@ -3,8 +3,8 @@
 module Move
   # king moves
   class OneUp < Base
-    def legal_target_positions
-      without_illegal_target_positions([position.down])
+    def position_candidates
+      [position.down]
     end
   end
 end

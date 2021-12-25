@@ -3,7 +3,7 @@
 module Move
   # unlimited horizontal movement for a piece
   class Diagonal < Base
-    def legal_target_positions
+    def position_candidates
       [
         position.positions_up_left,
         position.positions_up_right,

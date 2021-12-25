@@ -3,11 +3,10 @@
 module Move
   # knight moves in ls
   class Knight < Base
-    def legal_target_positions
-      positions = directions.map do |direction|
+    def position_candidates
+      directions.map do |direction|
         position.go(*direction)
-      end
-      without_illegal_target_positions(positions.compact)
+      end.compact
     end
 
     private

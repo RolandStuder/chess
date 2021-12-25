@@ -12,7 +12,10 @@ module Move
     end
 
     def legal_target_positions
-
+      positions = position_candidates
+      positions -= target_positions_that_are_occupied_by_friend(positions)
+      positions -= target_positions_that_create_check_for_own_king(positions)
+      positions
     end
 
     private
@@ -40,12 +43,6 @@ module Move
     def occupied_by_enemy?(target_position)
       other_piece = board.get(target_position).piece
       other_piece && other_piece.color != piece.color
-    end
-
-    def without_illegal_target_positions(positions)
-      positions -= target_positions_that_are_occupied_by_friend(positions)
-      positions -= target_positions_that_create_check_for_own_king(positions)
-      positions
     end
 
     def target_positions_that_are_occupied_by_friend(positions)

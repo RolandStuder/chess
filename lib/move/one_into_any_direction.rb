@@ -3,11 +3,11 @@
 module Move
   # king moves
   class OneIntoAnyDirection < Base
-    def legal_target_positions
+    def position_candidates
       positions = directions.map do |direction|
         position.go(*direction)
       end
-      without_illegal_target_positions(positions.compact)
+      positions.compact
     end
 
     private

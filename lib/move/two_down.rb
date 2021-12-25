@@ -3,7 +3,7 @@
 module Move
   # move down two squares if not occupied
   class TwoDown < Base
-    def legal_target_positions
+    def position_candidates
       if no_piece_in_the_way? && target_piece_not_occupied?
         [position.down.down]
       else
