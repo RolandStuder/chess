@@ -13,7 +13,7 @@ module Move
 
     private
 
-    def legal_moves_in_line(positions)
+    def legal_target_positions_in_line(positions)
       legals = []
       positions.each do |target_position|
         break if occupied_by_friend?(target_position)
@@ -38,7 +38,7 @@ module Move
       other_piece && other_piece.color != piece.color
     end
 
-    def without_illegal_moves(positions)
+    def without_illegal_target_positions(positions)
       positions -= target_positions_that_are_occupied_by_friend(positions)
       positions
     end

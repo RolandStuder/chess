@@ -9,8 +9,8 @@ module Move
       board.place(Piece.new(:black), "A1")
       move = Move::OneIntoAnyDirection.new(board, "A1")
 
-      assert_includes move.legal_moves, Position.parse("B1")
-      assert !move.legal_moves.include?(Position.parse("C1"))
+      assert_includes move.legal_target_positions, Position.parse("B1")
+      assert !move.legal_target_positions.include?(Position.parse("C1"))
     end
   end
 end

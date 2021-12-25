@@ -9,10 +9,10 @@ module Move
       board.place(Piece.new(:black), "C1")
 
       move = Move::Diagonal.new(board, "C1")
-      assert_includes move.legal_moves, Position.parse("A3")
+      assert_includes move.legal_target_positions, Position.parse("A3")
 
       board.place(Piece.new(:white), "B2")
-      assert !move.legal_moves.include?(Position.parse("A1"))
+      assert !move.legal_target_positions.include?(Position.parse("A1"))
     end
   end
 end

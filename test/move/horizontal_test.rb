@@ -9,10 +9,10 @@ module Move
       board.place(Piece.new(:black), "C1")
 
       move = Move::Horizontal.new(board, "C1")
-      assert_includes move.legal_moves, Position.parse("A1")
+      assert_includes move.legal_target_positions, Position.parse("A1")
 
       board.place(Piece.new(:white), "B1")
-      assert !move.legal_moves.include?(Position.parse("A1"))
+      assert !move.legal_target_positions.include?(Position.parse("A1"))
     end
 
     def test_legal_move_blocked_by_enemy_piece_to_the_right
@@ -21,8 +21,8 @@ module Move
       move = Move::Horizontal.new(board, "C1")
       board.place(Piece.new(:white), "F1")
 
-      assert_includes move.legal_moves, Position.parse("F1")
-      assert !move.legal_moves.include?(Position.parse("H1"))
+      assert_includes move.legal_target_positions, Position.parse("F1")
+      assert !move.legal_target_positions.include?(Position.parse("H1"))
     end
 
     def test_legal_move_blocked_by_own_piece
@@ -30,7 +30,7 @@ module Move
       board.place(Rook.new(:black), "C1")
       board.place(Piece.new(:black), "B1")
       move = Move::Horizontal.new(board, "C1")
-      assert !move.legal_moves.include?(Position.parse("B1"))
+      assert !move.legal_target_positions.include?(Position.parse("B1"))
     end
   end
 end

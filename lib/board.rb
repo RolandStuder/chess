@@ -29,7 +29,7 @@ class Board
   def legal_target_positions_for(position)
     piece = get(position).piece
     piece.move_types.map do |type|
-      type.new(self, position).legal_moves
+      type.new(self, position).legal_target_positions
     end.flatten
   end
 
