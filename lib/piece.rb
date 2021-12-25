@@ -36,4 +36,8 @@ class Piece
   def moved?
     @moved == true
   end
+
+  def ==(other)
+    color == other.color && self.class == other.class
+  end
 end

@@ -4,6 +4,10 @@
 class Board
   attr_reader :captured_pieces
 
+  def self.with_setup
+    FEN.new("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1").to_board(check_moved: false)
+  end
+
   def initialize
     create_squares
     @captured_pieces = []

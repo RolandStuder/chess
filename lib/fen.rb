@@ -8,9 +8,14 @@ class FEN
     raise "Invalid notation, should have 6 parts, but has #{parts.size}" unless parts.size == 6
   end
 
-  def to_board
+  # @param check_moved [boolean] will not set any moved status of pieces
+  #
+  # we used check_moved false to initiate a board with the start state from a FEN, as we use
+  # Board.with_setup in this method, we need this to prevent an infinite loop
+  def to_board(check_moved: true)
     board = Board.new
     pieces_with_positions.each do |piece, position|
+      piece.moved = true if check_moved && (Board.with_setup.get(position).piece != piece)
       board.place(piece, position)
     end
     board
@@ -37,6 +42,7 @@ class FEN
         next
       end
       squares << [Piece.from_fen(char), Position.parse(("A".."H").to_a[files_index] + rank_number.to_s)]
+      files_index += 1
     end
     squares
   end

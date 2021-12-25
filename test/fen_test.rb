@@ -10,4 +10,12 @@ class FENTest < Minitest::Test
     assert_kind_of Rook, board.get("A8").piece
     assert board.get("A8").piece.black?
   end
+
+  def test_pawn_moved_unless_in_start_rank
+    fen = FEN.new("8/7p/p7/8/8/P7/8/8 w KQkq - 0 1")
+    board = fen.to_board
+
+    assert board.get("A6").piece.moved?
+    assert !board.get("H7").piece.moved?
+  end
 end
