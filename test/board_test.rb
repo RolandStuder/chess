@@ -58,4 +58,13 @@ class BoardTest < Minitest::Test
     assert_equal 1, board.squares_occupied_by(:white).size
     assert(board.squares_occupied_by(:white).all? { |square| square.piece.white? })
   end
+
+  def test_check_for_a_color
+    board = Board.from_fen("K1r6/8/8/8/8/8/8/8 w KQkq - 0 1")
+    assert board.in_check?(:white)
+
+    board = Board.from_fen("K1R1r4/8/8/8/8/8/8/8 w KQkq - 0 1")
+    assert !board.in_check?(:white)
+
+  end
 end

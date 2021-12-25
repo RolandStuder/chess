@@ -8,6 +8,10 @@ class Board
     FEN.new("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1").to_board(check_moved: false)
   end
 
+  def self.from_fen(fen)
+    FEN.new(fen).to_board
+  end
+
   def initialize
     create_squares
     @captured_pieces = []
@@ -48,6 +52,15 @@ class Board
     @squares.select { |square| square&.piece&.color == color }
   end
 
+  def in_check?(color)
+    opposite_color = color == :black ? :white : :black
+    king_square = find_king(color)
+    squares_occupied_by(opposite_color).each do |square|
+      return true if legal_moves_for(square.position).any? { |position| position == king_square.position }
+    end
+    false
+  end
+
   private
 
   def capture(target_square)
@@ -64,5 +77,9 @@ class Board
         Square.new(col + row.to_s, color: color)
       end
     end.flatten
+  end
+
+  def find_king(color)
+    @squares.find { |square| square.piece == King.new(color) }
   end
 end
