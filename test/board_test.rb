@@ -62,7 +62,11 @@ class BoardTest < Minitest::Test
 
   def test_piece_cannot_move_if_it_creates_check_for_own_color
     board = Board.from_fen("8/8/8/4K3/3R4/2b5/8/8 w - - 0 1")
-
     assert board.legal_target_positions_for("D4").empty?
+  end
+
+  def test_piece_only_allows_moves_that_remove_check
+    board = Board.from_fen("8/8/8/4K3/8/2b5/3R4/8 w - - 0 1")
+    assert_equal [Position.parse("D4")], board.legal_target_positions_for("D2")
   end
 end

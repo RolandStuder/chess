@@ -14,7 +14,7 @@ module Move
     def legal_target_positions
       positions = position_candidates
       positions -= target_positions_that_are_occupied_by_friend
-      positions -= target_positions_that_create_check_for_own_king
+      positions -= target_positions_that_leave_check_for_own_king
       positions
     end
 
@@ -49,12 +49,11 @@ module Move
       position_candidates.select { |target_position| occupied_by_friend?(target_position) }
     end
 
-    def target_positions_that_create_check_for_own_king
+    def target_positions_that_leave_check_for_own_king
       position_candidates.select do |target_position|
         temp_board = Marshal.load(Marshal.dump(@board))
-        own_color = temp_board.get(position).piece.color
         temp_board.move(position, target_position)
-        temp_board.in_check?(own_color)
+        temp_board.in_check?(piece.color)
       end
     end
   end
