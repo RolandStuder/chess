@@ -69,4 +69,12 @@ class BoardTest < Minitest::Test
     board = Board.from_fen("8/8/8/4K3/8/2b5/3R4/8 w - - 0 1")
     assert_equal [Position.parse("D4")], board.legal_target_positions_for("D2")
   end
+
+  def test_returns_checkmate
+    board = Board.from_fen("8/8/8/4K3/8/2b5/3R4/8 w - - 0 1")
+    assert !board.in_checkmate?(:white)
+
+    board = Board.from_fen("8/8/6r1/4K1r1/6q1/2b5/3R4/8 w - - 0 1")
+    assert board.in_checkmate?(:white)
+  end
 end

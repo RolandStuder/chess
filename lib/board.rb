@@ -62,6 +62,16 @@ class Board
     false
   end
 
+  def in_checkmate?(color)
+    king_square = find_king(color)
+    return false unless king_square
+    return false unless in_check?(color)
+
+    squares_occupied_by(color).map do |square|
+      legal_target_positions_for(square.position)
+    end.flatten.empty?
+  end
+
   private
 
   def capture(target_square)

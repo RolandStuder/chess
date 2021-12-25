@@ -11,8 +11,9 @@ class Position
   # we want "A1" to always return the same object, so we can
   # do stuff like subtracting arrays,
   def self.new(letter, number)
-    as_string = letter+number.to_s
+    as_string = letter + number.to_s
     return @registry[as_string] if @registry[as_string]
+
     @registry[as_string] = super
   end
 
