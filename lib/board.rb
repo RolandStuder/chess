@@ -26,7 +26,7 @@ class Board
     get(position).piece = piece
   end
 
-  def legal_moves_for(position)
+  def legal_target_positions_for(position)
     piece = get(position).piece
     piece.move_types.map do |type|
       type.new(self, position).legal_moves
@@ -39,7 +39,7 @@ class Board
 
     origin_square = get(origin)
     target_square = get(target)
-    raise "Illegal move" unless legal_moves_for(origin).include? target
+    raise "Illegal move" unless legal_target_positions_for(origin).include? target
 
     piece = origin_square.piece
     piece.moved = true
@@ -56,7 +56,7 @@ class Board
     opposite_color = color == :black ? :white : :black
     king_square = find_king(color)
     squares_occupied_by(opposite_color).each do |square|
-      return true if legal_moves_for(square.position).any? { |position| position == king_square.position }
+      return true if legal_target_positions_for(square.position).any? { |position| position == king_square.position }
     end
     false
   end
