@@ -11,6 +11,10 @@ module Move
       @piece = board.get(position).piece
     end
 
+    def legal_target_positions
+
+    end
+
     private
 
     def legal_target_positions_in_line(positions)
@@ -40,11 +44,21 @@ module Move
 
     def without_illegal_target_positions(positions)
       positions -= target_positions_that_are_occupied_by_friend(positions)
+      positions -= target_positions_that_create_check_for_own_king(positions)
       positions
     end
 
     def target_positions_that_are_occupied_by_friend(positions)
       positions.select { |target_position| occupied_by_friend?(target_position) }
+    end
+
+    def target_positions_that_create_check_for_own_king(positions)
+      positions.select do |target_position|
+        temp_board = Marshal.load(Marshal.dump(@board))
+        own_color = temp_board.get(position).piece.color
+        temp_board.move(position, target_position)
+        temp_board.in_check?(own_color)
+      end
     end
   end
 end

@@ -54,8 +54,15 @@ class BoardTest < Minitest::Test
   def test_check_for_a_color
     board = Board.from_fen("K1r6/8/8/8/8/8/8/8 w KQkq - 0 1")
     assert board.in_check?(:white)
+    assert !board.in_check?(:black)
 
     board = Board.from_fen("K1R1r4/8/8/8/8/8/8/8 w KQkq - 0 1")
     assert !board.in_check?(:white)
+  end
+
+  def test_piece_cannot_move_if_it_creates_check_for_own_color
+    board = Board.from_fen("8/8/8/4K3/3R4/2b5/8/8 w - - 0 1")
+
+    assert board.legal_target_positions_for("D4").empty?
   end
 end

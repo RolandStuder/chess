@@ -52,8 +52,10 @@ class Board
   end
 
   def in_check?(color)
-    opposite_color = color == :black ? :white : :black
     king_square = find_king(color)
+    return false unless king_square
+
+    opposite_color = color == :black ? :white : :black
     squares_occupied_by(opposite_color).each do |square|
       return true if legal_target_positions_for(square.position).any? { |position| position == king_square.position }
     end
