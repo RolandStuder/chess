@@ -30,14 +30,6 @@ class BoardTest < Minitest::Test
     assert_equal piece, board.get("A8").piece
   end
 
-  def test_board_raises_error_on_illegal_move
-    board = Board.new
-    piece = Rook.new
-    board.place(piece, "A1")
-
-    assert_raises { board.move("A1", "B2") }
-  end
-
   def test_capture_a_piece
     board = Board.new
     piece = Rook.new(:white)

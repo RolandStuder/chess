@@ -39,7 +39,6 @@ class Board
 
     origin_square = get(origin)
     target_square = get(target)
-    raise "Illegal move" unless legal_target_positions_for(origin).include? target
 
     piece = origin_square.piece
     piece.moved = true

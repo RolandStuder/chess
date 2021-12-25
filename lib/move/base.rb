@@ -38,8 +38,13 @@ module Move
       other_piece && other_piece.color != piece.color
     end
 
-    def without_illegal_moves(moves)
-      moves.reject { |target_position| occupied_by_friend?(target_position) }
+    def without_illegal_moves(positions)
+      positions -= target_positions_that_are_occupied_by_friend(positions)
+      positions
+    end
+
+    def target_positions_that_are_occupied_by_friend(positions)
+      positions.select { |target_position| occupied_by_friend?(target_position) }
     end
   end
 end
