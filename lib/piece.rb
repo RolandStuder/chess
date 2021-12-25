@@ -25,6 +25,10 @@ class Piece
     @moved = false
   end
 
+  def move_types
+    []
+  end
+
   def black?
     color == :black
   end
