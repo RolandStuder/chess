@@ -8,27 +8,35 @@ class FEN
     raise "Invalid notation, should have 6 parts, but has #{parts.size}" unless parts.size == 6
   end
 
-  # a array of piece_name, color, and position
-  def to_squares
-    squares = []
-    ranks = parts.first.split("/")
-    ranks.each.with_index do |rank, index|
-      squares = rank_to_pieces_with_position(index, rank, squares)
+  def to_board
+    board = Board.new
+    pieces_with_positions.each do |piece, position|
+      board.place(piece, position)
     end
-    squares
+    board
   end
 
   private
 
-  def rank_to_pieces_with_position(index, rank, squares)
-    rank_number = 8 - index
+  # a array of piece, and position
+  def pieces_with_positions
+    result = []
+    fem_ranks = parts.first.split("/")
+    8.downto(1).each do |rank_number|
+      result += rank_to_pieces_with_position(rank_number, fem_ranks[8 - rank_number])
+    end
+    result
+  end
+
+  def rank_to_pieces_with_position(rank_number, rank_string)
+    squares = []
     files_index = 0
-    rank.chars.each do |char|
+    rank_string.chars.each do |char|
       if char.to_i.positive?
         files_index += char.to_i
         next
       end
-      squares << [Piece.new, Position.parse(("A".."H").to_a[files_index] + rank_number.to_s)]
+      squares << [Piece.from_fen(char), Position.parse(("A".."H").to_a[files_index] + rank_number.to_s)]
     end
     squares
   end
