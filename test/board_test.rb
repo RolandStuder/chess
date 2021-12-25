@@ -65,6 +65,5 @@ class BoardTest < Minitest::Test
 
     board = Board.from_fen("K1R1r4/8/8/8/8/8/8/8 w KQkq - 0 1")
     assert !board.in_check?(:white)
-
   end
 end

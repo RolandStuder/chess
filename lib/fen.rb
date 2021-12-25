@@ -33,19 +33,21 @@ class FEN
     result
   end
 
+  # rubocop:disable Metrics/MethodLength
   def rank_to_pieces_with_position(rank_number, rank_string)
     squares = []
     files_index = 0
-    rank_string.chars.each do |char|
+    rank_string.chars.map do |char|
       if char.to_i.positive?
         files_index += char.to_i
-        next
+      else
+        squares << [Piece.from_fen(char), Position.parse(("A".."H").to_a[files_index] + rank_number.to_s)]
+        files_index += 1
       end
-      squares << [Piece.from_fen(char), Position.parse(("A".."H").to_a[files_index] + rank_number.to_s)]
-      files_index += 1
     end
     squares
   end
+  # rubocop:enable Metrics/MethodLength
 
   def parts
     @raw.split
