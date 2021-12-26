@@ -4,6 +4,7 @@ module Move
   # unlimited horizontal movement for a piece
   class BlackLeftCastle < Castle
     private
+
     def king_target
       "B8"
     end

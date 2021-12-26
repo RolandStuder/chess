@@ -15,6 +15,7 @@ class Piece
       assert_includes board.legal_target_positions_for("E8"), Position.parse("B8")
       board.move("E8", "B8")
       assert_equal Rook.new(:black), board.get("C8").piece
+      assert_equal King.new(:black), board.get("B8").piece
     end
   end
 end

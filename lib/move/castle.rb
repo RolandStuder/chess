@@ -4,8 +4,8 @@ module Move
   # unlimited horizontal movement for a piece
   class Castle < Base
     def position_candidates
-      unless allowed?
-        position_candidates
+      if !allowed?
+        [Position.parse(king_target)]
       else
         []
       end
@@ -18,12 +18,7 @@ module Move
       ]
     end
 
-    def position_candidates
-      [Position.parse(king_target)]
-    end
-
     private
-
 
     def allowed?
       king_not_moved? && rook_not_moved? && no_blocking_pieces?
@@ -41,10 +36,6 @@ module Move
       in_between_positions.none do |pos|
         board.get(pos).occupied?
       end
-    end
-
-    def in_between_positions
-      Position.parse("B8", "D8")
     end
   end
 end

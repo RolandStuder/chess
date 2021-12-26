@@ -100,7 +100,7 @@ class Board
   def king_square(color)
     @squares.find { |square| square.piece == King.new(color) }
   end
-  alias_method :find_king, :king_square
+  alias find_king king_square
 
   def find_move_type(origin, target)
     origin = Position.parse(origin)
