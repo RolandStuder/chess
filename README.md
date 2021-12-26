@@ -28,3 +28,6 @@ Implemented in Ruby
 ## Testing
 
 run `rake test`
+
+## Blockage I had
+

@@ -4,10 +4,9 @@ module Move
   # king moves
   class OneIntoAnyDirection < Base
     def position_candidates
-      positions = directions.map do |direction|
+      directions.map do |direction|
         position.go(*direction)
-      end
-      positions.compact
+      end.compact
     end
 
     private

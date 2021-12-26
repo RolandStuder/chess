@@ -51,14 +51,12 @@ class Board
   end
 
   def in_check?(color)
-    king_square = find_king(color)
-    return false unless king_square
-
     opposite_color = color == :black ? :white : :black
-    squares_occupied_by(opposite_color).each do |square|
-      return true if legal_target_positions_for(square.position).any? { |position| position == king_square.position }
+    return false unless king_square(color)
+
+    (squares_occupied_by(opposite_color) - [king_square(opposite_color)]).any? do |square|
+      legal_target_positions_for(square.position).any? { |position| position == king_square(color).position }
     end
-    false
   end
 
   def in_checkmate?(color)
@@ -99,9 +97,10 @@ class Board
     end.flatten
   end
 
-  def find_king(color)
+  def king_square(color)
     @squares.find { |square| square.piece == King.new(color) }
   end
+  alias_method :find_king, :king_square
 
   def find_move_type(origin, _target)
     origin = Position.parse(origin)
