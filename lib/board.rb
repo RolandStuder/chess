@@ -102,11 +102,11 @@ class Board
   end
   alias_method :find_king, :king_square
 
-  def find_move_type(origin, _target)
+  def find_move_type(origin, target)
     origin = Position.parse(origin)
     types = get(origin).piece.move_types
     types.find do |type|
-      type.new(self, origin).send(:position_candidates).include?(Position.parse(origin))
+      type.new(self, origin).send(:position_candidates).include?(Position.parse(target))
     end || Move::Base
   end
 end

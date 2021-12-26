@@ -19,7 +19,6 @@ class Piece
       assert_equal false, board.legal_target_positions_for("C6").include?(Position.parse("D5"))
       board.place(Pawn.new(:white), "D5")
       assert board.legal_target_positions_for("C6").include?(Position.parse("D5"))
-
     end
   end
 end
