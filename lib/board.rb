@@ -33,6 +33,13 @@ class Board
     end.flatten
   end
 
+  def threatening_positions_for(position)
+    piece = get(position).piece
+    piece.move_types.map do |type|
+      type.new(self, position).threatening_positions
+    end.flatten
+  end
+
   def move(origin, target)
     move_type = find_move_type(origin, target)
     current_move = move_type.new(self, origin, target)
@@ -54,14 +61,13 @@ class Board
     opposite_color = color == :black ? :white : :black
     return false unless king_square(color)
 
-    (squares_occupied_by(opposite_color) - [king_square(opposite_color)]).any? do |square|
-      legal_target_positions_for(square.position).any? { |position| position == king_square(color).position }
+    squares_occupied_by(opposite_color).any? do |square|
+      threatening_positions_for(square.position).any? { |position| position == king_square(color).position }
     end
   end
 
   def in_checkmate?(color)
-    king_square = find_king(color)
-    return false unless king_square
+    return false unless king_square(color)
     return false unless in_check?(color)
 
     squares_occupied_by(color).map do |square|
@@ -100,7 +106,6 @@ class Board
   def king_square(color)
     @squares.find { |square| square.piece == King.new(color) }
   end
-  alias find_king king_square
 
   def find_move_type(origin, target)
     origin = Position.parse(origin)

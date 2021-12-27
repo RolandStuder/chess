@@ -27,6 +27,13 @@ module Move
       positions
     end
 
+    # to check for check, an attack move that leaves your own king in check, is still relevant
+    def threatening_positions
+      positions = position_candidates
+      positions -= target_positions_that_are_occupied_by_friend
+      positions
+    end
+
     private
 
     def legal_target_positions_in_line(positions)
@@ -57,11 +64,11 @@ module Move
     end
 
     def target_positions_that_are_occupied_by_friend
-      position_candidates.select { |target_position| occupied_by_friend?(target_position) }
+      position_candidates.compact.select { |target_position| occupied_by_friend?(target_position) }
     end
 
     def target_positions_that_leave_check_for_own_king
-      position_candidates.select do |target_position|
+      position_candidates.compact.select do |target_position|
         temp_board = Marshal.load(Marshal.dump(@board))
         temp_board.move(position, target_position)
         temp_board.in_check?(piece.color)

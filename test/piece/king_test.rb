@@ -17,5 +17,10 @@ class Piece
       assert_equal Rook.new(:black), board.get("C8").piece
       assert_equal King.new(:black), board.get("B8").piece
     end
+
+    def test_king_cannot_castle_if_fields_are_threatened
+      board = Board.from_fen("r2qkbnr/p2ppppp/8/8/8/8/P2PPPPP/2RQKBNR w Kkq - 0 1")
+      assert !board.legal_target_positions_for("E8").include?(Position.parse("B8"))
+    end
   end
 end
