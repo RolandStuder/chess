@@ -9,7 +9,7 @@ class Piece
       assert_includes board.legal_target_positions_for("A8"), Position.parse("B8")
     end
 
-    def test_black_king_can_castle
+    def test_black_king_can_castles
       board = Board.from_fen("r3kbnr/8/8/8/8/8/8/K7 w KQkq - 0 1")
       assert_kind_of King, board.get("E8").piece
       assert_includes board.legal_target_positions_for("E8"), Position.parse("B8")
@@ -19,7 +19,7 @@ class Piece
     end
 
     def test_king_cannot_castle_if_fields_are_threatened
-      board = Board.from_fen("r2qkbnr/p2ppppp/8/8/8/8/P2PPPPP/2RQKBNR w Kkq - 0 1")
+      board = Board.from_fen("r3kbnr/p3pppp/8/8/8/8/PQ2PPPP/3RKBNR w Kkq - 0 1")
       assert !board.legal_target_positions_for("E8").include?(Position.parse("B8"))
     end
   end

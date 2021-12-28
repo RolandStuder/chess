@@ -18,4 +18,10 @@ class FENTest < Minitest::Test
     assert board.get("A6").piece.moved?
     assert !board.get("H7").piece.moved?
   end
+
+  def test_castling_right_removed
+    fen = FEN.new("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQK2R w Qkq - 0 1")
+    board = fen.to_board
+    assert !board.legal_target_positions_for("E1").include?(Position.parse("G1"))
+  end
 end
