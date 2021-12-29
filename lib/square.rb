@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'colorize'
+
 # Square is a cell on the board, that can hold pieces
 class Square
   attr_reader :position
@@ -8,6 +10,12 @@ class Square
   def initialize(position, color: :white)
     @color = color
     @position = Position.parse(position)
+  end
+
+  def to_s
+    piece_symbol = (piece ? piece.to_fen : " ")
+    piece_symbol = piece.white? ? piece_symbol.light_white : piece_symbol.black if piece
+    white? ? piece_symbol.on_light_blue : piece_symbol.on_blue
   end
 
   def empty?
