@@ -2,7 +2,7 @@
 
 # Board serves to keep the sate, of where all the pieces are
 class Board
-  attr_reader :captured_pieces
+  attr_reader :captured_pieces, :squares
   attr_accessor :en_passant_target_position
 
   def self.with_setup

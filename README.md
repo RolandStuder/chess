@@ -15,8 +15,6 @@ Implemented in Ruby
 * add 5D blindfolded variant for @timato
 * implement promotion
 * Implement draw situations
-  * stalemate
-  * dead positions (might be covered by stalemate)
   * threefold repetition
   * 50 move rule
 * maybe refactor operations_on_board, into "move_pieces" and "captures"

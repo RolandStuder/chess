@@ -31,6 +31,10 @@ class Position
     new(letter, number)
   end
 
+  def to_s
+    letter + number.to_s
+  end
+
   def self.parse_array(array)
     array.map { |pos| Position.parse(pos) }
   end

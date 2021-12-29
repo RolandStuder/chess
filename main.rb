@@ -3,6 +3,7 @@
 require_relative 'lib/square'
 require_relative 'lib/fen'
 require_relative 'lib/board'
+require_relative 'lib/board/fen_serializer'
 require_relative 'lib/position'
 
 require_relative 'lib/piece'

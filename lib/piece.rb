@@ -18,6 +18,18 @@ class Piece
     else raise "invalid piece representation"
     end
   end
+
+  def to_fen
+    char = case self
+           when Rook then "R"
+           when Knight then "N"
+           when Queen then "Q"
+           when King then "K"
+           when Bishop then "B"
+           when Pawn then "P"
+           end
+    white? ? char.downcase : char
+  end
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def initialize(color = :white)
