@@ -82,4 +82,12 @@ class BoardTest < Minitest::Test
     board = Board.with_setup
     assert Move::Vertical, board.send(:find_move_type, "C7", "C5")
   end
+
+  def test_stale_mate
+    board = Board.from_fen("k7/8/8/8/8/6q1/8/7K w - - 0 1")
+    assert board.in_stalemate?(:white)
+
+    board = Board.from_fen("k5qr/8/2n4B/p1P5/P7/8/r7/7K w - - 0 1")
+    assert board.in_stalemate?(:white)
+  end
 end

@@ -9,21 +9,16 @@ Implemented in Ruby
 
 ## TODO:
 
-* prevent moves that do not remove the existing check
-* add castling move
-* add en passant
-* do promotion of pawn
-* check for chekmate
 * implement display
 * implement game
 * implement player
 * add 5D blindfolded variant for @timato
-* Prevent moves, that set King into check
-* Create move history
+* implement promotion
 * Implement draw situations
-* I will need to filter the legal moves more, by some rules, like
-  * cannot move away if it creates check
-  * cannot move away unless prevents existing check situation
+  * stalemate
+  * dead positions (might be covered by stalemate)
+  * threefold repetition
+  * 50 move rule
 * maybe refactor operations_on_board, into "move_pieces" and "captures"
 * maybe refactor out pawn conditional class to move (position candidates)
 

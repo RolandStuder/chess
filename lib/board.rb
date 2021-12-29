@@ -85,6 +85,15 @@ class Board
     end.flatten.empty?
   end
 
+  def in_stalemate?(color)
+    return false unless king_square(color)
+    return false if in_check?(color)
+
+    squares_occupied_by(color).all? do |square|
+      legal_target_positions_for(square.position).compact.empty?
+    end
+  end
+
   private
 
   def capture(target_square)

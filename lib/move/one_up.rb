@@ -4,7 +4,7 @@ module Move
   # king moves
   class OneUp < Base
     def position_candidates
-      [position.down]
+      [(position.up unless board.get(position.up).occupied?)].compact
     end
   end
 end
