@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 # Board serves to keep the sate, of where all the pieces are
+# rubocop:disable Metrics/ClassLength
 class Board
   attr_reader :captured_pieces, :squares
   attr_accessor :en_passant_target_position
@@ -49,17 +50,9 @@ class Board
 
   def move(origin, target)
     move_type = find_move_type(origin, target)
-    # binding.irb if target == Position.parse("C8")
 
     current_move = move_type.new(self, origin, target)
-    current_move.operations_on_board.each do |operation|
-      case operation[:type]
-      when :capture
-        capture(get(operation[:target]))
-      when :move
-        move_operation(operation[:origin], operation[:target])
-      end
-    end
+    perform_board_operations(current_move.operations_on_board)
     @en_passant_target_position = current_move.en_passant_target_positions
   end
 
@@ -103,6 +96,17 @@ class Board
     target_square.piece = nil
   end
 
+  def perform_board_operations(operations)
+    operations.each do |operation|
+      case operation[:type]
+      when :capture
+        capture(get(operation[:target]))
+      when :move
+        move_operation(operation[:origin], operation[:target])
+      end
+    end
+  end
+
   def move_operation(origin, target)
     origin_square = get(origin)
     target_square = get(target)
@@ -134,3 +138,4 @@ class Board
     end || Move::Base
   end
 end
+# rubocop:enable Metrics/ClassLength

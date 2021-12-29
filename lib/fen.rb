@@ -25,19 +25,7 @@ class FEN
     board
   end
 
-  def self.from_board(board)
-    board.squares.each_slice(8).to_a.map do |file|
-      file.map do |square|
-        square.piece ? square.piece.to_fen : 1
-      end.chunk { |s| s.is_a? Integer }.map do |is_number, array|
-        is_number ? array.sum : array
-      end.flatten.join
-    end.join("/")
-  end
-
   private
-
-  def fen_ranks_from_board; end
 
   # a array of piece, and position
   def pieces_with_positions

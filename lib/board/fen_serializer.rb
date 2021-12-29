@@ -29,31 +29,45 @@ class Board
 
     def ranks
       @board.squares.each_slice(8).to_a.map do |file|
-        file.map do |square|
-          square.piece ? square.piece.to_fen : 1
-        end.chunk do |s|
-          s.is_a? Integer
-        end.map do |is_number, array|
-          is_number ? array.sum : array
-        end.flatten.join
+        file_of_squares_to_fen(file)
       end.join("/")
     end
 
+    # rubocop:disable Metrics/MethodLength
+    def file_of_squares_to_fen(file)
+      result = ""
+      file.each do |square|
+        if square.piece
+          result += square.piece.to_fen
+        elsif result.chars.last.to_i.positive?
+          result[-1] = (result[-1].to_i + 1).to_s
+        else
+          result += "1"
+        end
+      end
+      result
+    end
+    # rubocop:enable Metrics/MethodLength
+
     def castling_rights
       rights = []
-      rights << "K" if not_moved_at("H8") && not_moved_at("E8")
-      rights << "Q" if not_moved_at("A8") && not_moved_at("E8")
-      rights << "k" if not_moved_at("H1") && not_moved_at("E8")
-      rights << "q" if not_moved_at("A1") && not_moved_at("E8")
+      rights << "K" if not_moved_at("H8", "E8")
+      rights << "Q" if not_moved_at("A8", "E8")
+      rights << "k" if not_moved_at("H1", "E1")
+      rights << "q" if not_moved_at("A1", "E1")
       rights.empty? ? "-" : rights.join
     end
 
-    def not_moved_at(position)
-      board.get(position).piece && !board.get(position).piece.moved?
+    def not_moved_at(*positions)
+      positions.each do |position|
+        board.get(position).piece && !board.get(position).piece.moved?
+      end
     end
 
     def en_passant_target_square
       board.en_passant_target_position || "-"
     end
+
+    def square_to_fen(square); end
   end
 end
