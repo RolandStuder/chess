@@ -11,6 +11,10 @@ module Move
       end
     end
 
+    def en_passant_target_positions
+      position.down
+    end
+
     private
 
     def no_piece_in_the_way?

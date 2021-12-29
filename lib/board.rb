@@ -3,6 +3,7 @@
 # Board serves to keep the sate, of where all the pieces are
 class Board
   attr_reader :captured_pieces
+  attr_accessor :en_passant_target_position
 
   def self.with_setup
     FEN.new("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1").to_board(check_moved: false)
@@ -59,6 +60,7 @@ class Board
         move_operation(operation[:origin], operation[:target])
       end
     end
+    @en_passant_target_position = current_move.en_passant_target_positions
   end
 
   def squares_occupied_by(color)
@@ -88,7 +90,7 @@ class Board
   def capture(target_square)
     return false if target_square.empty?
 
-    @captured_pieces << target_square.piece
+    @captured_pieces << target_square.piece.dup
     target_square.piece = nil
   end
 

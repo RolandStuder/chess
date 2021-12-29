@@ -34,6 +34,10 @@ module Move
       positions
     end
 
+    def en_passant_target_positions
+      nil
+    end
+
     private
 
     def legal_target_positions_in_line(positions)

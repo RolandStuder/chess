@@ -24,6 +24,7 @@ Implemented in Ruby
 * I will need to filter the legal moves more, by some rules, like
   * cannot move away if it creates check
   * cannot move away unless prevents existing check situation
+* maybe refactor operations_on_board, into "move_pieces" and "captures"
 
 ## Testing
 

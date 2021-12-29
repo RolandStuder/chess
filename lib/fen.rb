@@ -21,6 +21,7 @@ class FEN
       board.place(piece, position)
     end
     remove_castling_rights
+    set_en_passent_target_position
     board
   end
 
@@ -57,6 +58,10 @@ class FEN
     move_rook_at("A8") unless parts[2].include? "q"
     move_rook_at("H1") unless parts[2].include? "K"
     move_rook_at("A1") unless parts[2].include? "Q"
+  end
+
+  def set_en_passent_target_position
+    board.en_passant_target_position = Position.parse(parts[3])
   end
 
   def move_rook_at(position)

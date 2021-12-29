@@ -12,6 +12,7 @@ class Pawn < Piece
 
   def black_move_types
     [
+      Move::EnPassant,
       Move::OneDown,
       (Move::TwoDown unless moved?),
       Move::DownDiagonalCapture
