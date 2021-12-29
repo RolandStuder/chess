@@ -40,8 +40,16 @@ class Board
     end.flatten
   end
 
+  def positions_under_attack_from(color)
+    squares_occupied_by(color).each do |square|
+      threatening_positions_for(square.position)
+    end.uniq
+  end
+
   def move(origin, target)
     move_type = find_move_type(origin, target)
+    # binding.irb if target == Position.parse("C8")
+
     current_move = move_type.new(self, origin, target)
     current_move.operations_on_board.each do |operation|
       case operation[:type]

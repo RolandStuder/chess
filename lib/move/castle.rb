@@ -4,10 +4,10 @@ module Move
   # unlimited horizontal movement for a piece
   class Castle < Base
     def position_candidates
-      if !allowed?
-        [Position.parse(king_target)]
-      else
+      if disallowed?
         []
+      else
+        [Position.parse(king_target)]
       end
     end
 
@@ -20,28 +20,30 @@ module Move
 
     private
 
-    def allowed?
-      king_not_moved? && rook_not_moved? && no_blocking_pieces? && no_threatened_positions_in_between?
+    def disallowed?
+      king_moved? || rook_moved? || blocking_pieces? || threatened_positions_in_between?
     end
 
-    def king_not_moved?
-      !piece.moved?
+    def king_moved?
+      piece.moved?
     end
 
-    def rook_not_moved?
+    def rook_moved?
+      return true unless board.get(rook_origin).piece
+
       board.get(rook_origin).piece.moved?
     end
 
-    def no_blocking_pieces?
-      in_between_positions.none do |pos|
+    def blocking_pieces?
+      in_between_positions.any? do |pos|
         board.get(pos).occupied?
       end
     end
 
-    def no_threatened_positions_in_between?
-      binding.irb
-      in_between_positions.none? do |pos|
-        board.get(pos).threatening_positions_for(pos).present?
+    def threatened_positions_in_between?
+      opposite_color = piece.color == :white ? :black : :white
+      in_between_positions.any? do |pos|
+        board.positions_under_attack_from(opposite_color).include? pos
       end
     end
   end

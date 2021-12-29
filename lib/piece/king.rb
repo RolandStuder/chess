@@ -4,9 +4,9 @@
 class King < Piece
   def move_types
     if black?
-      [Move::OneIntoAnyDirection, Move::BlackLeftCastle]
+      [Move::OneIntoAnyDirection, Move::BlackLeftCastle, Move::BlackRightCastle]
     else
-      [Move::OneIntoAnyDirection]
+      [Move::OneIntoAnyDirection, Move::WhiteLeftCastle, Move::WhiteRightCastle]
     end
   end
 end

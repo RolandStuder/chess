@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
 module Move
-  # black queen side castle
-  class BlackLeftCastle < Castle
+  # white queen side castle
+  class WhiteLeftCastle < Castle
     private
 
     def king_target
-      "C8"
+      "C1"
     end
 
     def rook_origin
-      "A8"
+      "A1"
     end
 
     def rook_target
-      "D8"
+      "D1"
     end
 
     def in_between_positions
-      Position.parse(%w[B8 C8 D8])
+      Position.parse(%w[B1 C1 D1])
     end
   end
 end
