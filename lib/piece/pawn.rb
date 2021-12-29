@@ -21,6 +21,7 @@ class Pawn < Piece
 
   def white_move_types
     [
+      Move::EnPassant,
       Move::OneUp,
       (Move::TwoUp unless moved?),
       Move::UpDiagonalCapture

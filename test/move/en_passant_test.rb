@@ -28,7 +28,7 @@ module Move
       assert_includes board.legal_target_positions_for("G4"), Position.parse("H3")
     end
 
-    def test_en_passant_move_caputres_passed_pawn
+    def test_en_passant_move_down_captures_passed_pawn
       board = Board.from_fen("rnbqkbnr/pppppp1p/8/8/5PpP/4P3/PPPP2P1/RNBQKBNR b KQkq h3 0 4")
       assert_includes board.legal_target_positions_for("G4"), Position.parse("H3")
 
@@ -39,6 +39,11 @@ module Move
       # other pawn captured
       assert_includes board.captured_pieces, Pawn.new(:white)
       assert_nil board.get("H4").piece
+    end
+
+    def test_en_passant_move_up
+      board = Board.from_fen("rnbqkbnr/p2ppppp/8/2pP4/1pP5/4P3/PP3PPP/RNBQKBNR w KQkq c6 0 5")
+      assert_includes board.legal_target_positions_for("D5"), Position.parse("C6")
     end
   end
 end

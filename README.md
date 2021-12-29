@@ -25,6 +25,7 @@ Implemented in Ruby
   * cannot move away if it creates check
   * cannot move away unless prevents existing check situation
 * maybe refactor operations_on_board, into "move_pieces" and "captures"
+* maybe refactor out pawn conditional class to move (position candidates)
 
 ## Testing
 
