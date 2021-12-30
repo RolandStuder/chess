@@ -5,4 +5,8 @@ class Queen < Piece
   def move_types
     [Move::Diagonal, Move::Horizontal, Move::Vertical]
   end
+
+  def to_s
+    black? ? "♕" : "♛"
+  end
 end

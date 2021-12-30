@@ -5,4 +5,8 @@ class Rook < Piece
   def move_types
     [Move::Horizontal, Move::Vertical]
   end
+
+  def to_s
+    black? ? "♖" : "♜"
+  end
 end

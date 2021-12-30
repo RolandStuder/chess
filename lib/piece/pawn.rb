@@ -10,6 +10,10 @@ class Pawn < Piece
     end
   end
 
+  def to_s
+    black? ? "♙" : "♟"
+  end
+
   def black_move_types
     [
       Move::EnPassant,

@@ -5,4 +5,8 @@ class Knight < Piece
   def move_types
     [Move::Knight]
   end
+
+  def to_s
+    black? ? "♘" : "♞"
+  end
 end

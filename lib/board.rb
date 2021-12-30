@@ -118,9 +118,9 @@ class Board
   end
 
   def create_squares
-    @squares = (1..8).map.with_index do |row, row_index|
+    @squares = 8.downto(1).map.with_index do |row, row_index|
       ("A".."H").map.with_index do |col, col_index|
-        color = ((col_index % 2) + (row_index % 2)).odd? ? :white : :black
+        color = ((col_index % 2) + (row_index % 2)).odd? ? :black : :white
         Square.new(col + row.to_s, color: color)
       end
     end.flatten

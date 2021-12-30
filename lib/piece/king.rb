@@ -9,4 +9,8 @@ class King < Piece
       [Move::OneIntoAnyDirection, Move::WhiteLeftCastle, Move::WhiteRightCastle]
     end
   end
+
+  def to_s
+    black? ? "♔" : "♚"
+  end
 end

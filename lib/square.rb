@@ -13,8 +13,7 @@ class Square
   end
 
   def to_s
-    piece_symbol = (piece ? piece.to_fen : " ")
-    piece_symbol = piece.white? ? piece_symbol.light_white : piece_symbol.black if piece
+    piece_symbol = (piece ? piece.to_s : " ").light_white
     white? ? piece_symbol.on_light_blue : piece_symbol.on_blue
   end
 
