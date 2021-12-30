@@ -56,6 +56,13 @@ class Board
     @en_passant_target_position = current_move.en_passant_target_positions
   end
 
+  def valid_move_for?(color, origin, target)
+    return false unless squares_occupied_by(color).include?(get(origin))
+    return false unless legal_target_positions_for(origin).include?(Position.parse(target))
+
+    true
+  end
+
   def squares_occupied_by(color)
     @squares.select { |square| square&.piece&.color == color }
   end
