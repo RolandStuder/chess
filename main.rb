@@ -6,6 +6,7 @@ require_relative 'lib/board'
 require_relative 'lib/board/fen_serializer'
 require_relative 'lib/position'
 require_relative 'lib/display'
+require_relative 'lib/game'
 
 require_relative 'lib/piece'
 require_relative 'lib/piece/rook'
@@ -34,5 +35,4 @@ require_relative 'lib/move/one_up'
 require_relative 'lib/move/two_down'
 require_relative 'lib/move/two_up'
 
-board = Board.with_setup
-puts Display.new(board).board
+Game.start
