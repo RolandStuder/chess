@@ -29,7 +29,9 @@ class Game
       puts "#{@active_color.capitalize} your move"
       print "> "
       input = gets.chomp
-      next if valid_move?(input)
+      next if !valid_input?(input)
+      next if !valid_move?(input)
+
       board.move(input[0, 2], input[2, 2])
       break if checkmate?
       break if stalemate?
@@ -50,26 +52,34 @@ class Game
   end
 
   def stalemate?
-    if board.in_stalemate?(opponent_color)
-      system("clear")
-      puts "Draw (stalemate)"
-      return true
-    end
+    return false unless board.in_stalemate?(opponent_color)
+
+    system("clear")
+    puts "Draw (stalemate)"
+    true
   end
 
   def checkmate?
-    if board.in_checkmate?(opponent_color)
-      system("clear")
-      puts "#{@active_color} won"
-      return true
-    end
+    return false unless board.in_checkmate?(opponent_color)
+
+    system("clear")
+    puts "#{@active_color} won"
+    true
   end
 
   def valid_move?(input)
-    unless board.valid_move_for?(@active_color, input[0, 2], input[2, 2])
-      puts "not a valid move for #{@active_color}"
-      sleep 2
-      return true
-    end
+    return true if board.valid_move_for?(@active_color, input[0, 2], input[2, 2])
+
+    puts "not a valid move for #{@active_color}"
+    sleep 2
+    false
+  end
+
+  def valid_input?(input)
+    return true if Position.parse(input[0, 2]) && Position.parse(input[2, 2])
+
+    puts "not a valid input use format 'a1b2' to perform a move"
+    sleep 3
+    false
   end
 end

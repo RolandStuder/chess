@@ -9,18 +9,13 @@ Implemented in Ruby
 
 ## TODO:
 
-* implement display
-* implement game
-* implement player
+* implement player, maybe I'll jump that
 * add 5D blindfolded variant for @timato
+* save game state
 * implement promotion (first situation that needs an input)
 * Implement draw situations
   * threefold repetition, this actually needs the game class
   * 50 move rule, this needs the game class
-* maybe refactor operations_on_board, into "move_pieces" and "captures"
-* maybe refactor out pawn conditional class to move (position candidates)
-* maybe refactor out how board is manipultated from moves
-* maybe extract Checks for check and so on
 
 ## Testing
 

@@ -22,8 +22,8 @@ class Position
     return parse_array(input) if input.is_a? Array
     return input if input.is_a? Position
 
-    letter = input.strip.chars[0].upcase
-    number = input.strip.chars[1].to_i
+    letter = input.strip.chars[0]&.upcase
+    number = input.strip.chars[1]&.to_i
 
     return nil unless COLUMNS.include? letter
     return nil unless ROWS.include? number
