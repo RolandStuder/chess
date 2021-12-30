@@ -7,8 +7,13 @@ class Display
   end
 
   def board
-    @board.squares.each_slice(8).to_a.map do |file|
+    ranks = @board.squares.each_slice(8).to_a.map do |file|
       file.map(&:to_s).join
     end
+    ranks.map!.with_index(0) do |rank, index|
+      "#{8 - index} #{rank}"
+    end
+    ranks.unshift("  #{('A'..'H').to_a.map { " #{_1} "}.join}")
+    ranks
   end
 end

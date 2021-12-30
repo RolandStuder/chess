@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# running an actual game, containing the main game loop
 class Game
   attr_reader :board, :display
 
