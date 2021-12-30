@@ -2,6 +2,6 @@
 
 source 'https://rubygems.org'
 
-gem 'minitest'
 gem 'colorize'
+gem 'minitest'
 gem 'rubocop', require: false

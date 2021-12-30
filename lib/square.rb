@@ -14,7 +14,8 @@ class Square
 
   def to_s
     piece_symbol = (piece ? piece.to_s : " ").light_white
-    white? ? piece_symbol.on_light_blue : piece_symbol.on_blue
+    output = " #{piece_symbol} \n"
+    output.split("\n").map { |row| white? ? row.on_light_blue : row.on_blue }.join("\n")
   end
 
   def empty?
