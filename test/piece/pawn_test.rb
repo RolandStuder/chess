@@ -22,8 +22,20 @@ class Piece
     end
 
     def test_pawn_can_promote
-      board = Board.from_fen("8/6P1/8/8/8/8/3p4/8 w - - 0 1")
-      # OneDown.new(self, origin, target)
+      board = Board.from_fen("8/6P1/1r6/8/8/8/3p4/8 w - - 0 1")
+
+      current_move = Move.from_board(board, "B6", "B1")
+      assert !current_move.promotion_available?
+
+      current_move = Move.from_board(board, "G7", "G8")
+      assert current_move.promotion_available?
+
+      current_move = Move.from_board(board, "D2", "D1")
+      assert current_move.promotion_available?
+      board.move("D2", "D1")
+
+      assert board.get("D1").occupied?
+      assert !board.get("D1").piece.kind_of?(Pawn)
     end
   end
 end

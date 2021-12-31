@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# A move contains the logic around what moves are allowed
+# This is a base class for all specific moves, like horizontal and en passant
 class Move
   attr_reader :board, :position, :piece, :target
 
@@ -45,6 +47,10 @@ class Move
     nil
   end
 
+  def promotion_available?
+    false
+  end
+
   private
 
   def legal_target_positions_in_line(positions)
@@ -72,10 +78,6 @@ class Move
 
     other_piece = board.get(target_position).piece
     other_piece && other_piece.color != piece.color
-  end
-
-  def promotion_available?
-    false
   end
 
   def target_positions_that_are_occupied_by_friend
