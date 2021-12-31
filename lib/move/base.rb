@@ -5,6 +5,15 @@ module Move
   class Base
     attr_reader :board, :position, :piece, :target
 
+    def self.from_board(board, origin, target)
+      origin = Position.parse(origin)
+      types = board.get(origin).piece.move_types
+      move_type = types.find do |type|
+        type.new(board, origin).send(:position_candidates).include?(Position.parse(target))
+      end || Move::Base
+      move_type.new(board, origin, target)
+    end
+
     def initialize(board, position, target = nil)
       @board = board
       @position = Position.parse(position)
@@ -65,6 +74,10 @@ module Move
 
       other_piece = board.get(target_position).piece
       other_piece && other_piece.color != piece.color
+    end
+
+    def promotion_available?
+      false
     end
 
     def target_positions_that_are_occupied_by_friend

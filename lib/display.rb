@@ -13,7 +13,7 @@ class Display
     ranks.map!.with_index(0) do |rank, index|
       "#{8 - index} #{rank}"
     end
-    ranks.unshift("  #{('A'..'H').to_a.map { |file|" #{file} "}.join}")
+    ranks.unshift("  #{('A'..'H').to_a.map { |file| " #{file} " }.join}")
     ranks
   end
 end

@@ -49,9 +49,7 @@ class Board
   end
 
   def move(origin, target)
-    move_type = find_move_type(origin, target)
-
-    current_move = move_type.new(self, origin, target)
+    current_move = Move::Base.from_board(self, origin, target)
     perform_board_operations(current_move.operations_on_board)
     @en_passant_target_position = current_move.en_passant_target_positions
   end
@@ -135,14 +133,6 @@ class Board
 
   def king_square(color)
     @squares.find { |square| square.piece == King.new(color) }
-  end
-
-  def find_move_type(origin, target)
-    origin = Position.parse(origin)
-    types = get(origin).piece.move_types
-    types.find do |type|
-      type.new(self, origin).send(:position_candidates).include?(Position.parse(target))
-    end || Move::Base
   end
 end
 # rubocop:enable Metrics/ClassLength

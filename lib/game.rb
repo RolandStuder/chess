@@ -29,8 +29,8 @@ class Game
       puts "#{@active_color.capitalize} your move"
       print "> "
       input = gets.chomp
-      next if !valid_input?(input)
-      next if !valid_move?(input)
+      next unless valid_input?(input)
+      next unless valid_move?(input)
 
       board.move(input[0, 2], input[2, 2])
       break if checkmate?
@@ -54,7 +54,6 @@ class Game
   def stalemate?
     return false unless board.in_stalemate?(opponent_color)
 
-    system("clear")
     puts "Draw (stalemate)"
     true
   end
@@ -62,7 +61,6 @@ class Game
   def checkmate?
     return false unless board.in_checkmate?(opponent_color)
 
-    system("clear")
     puts "#{@active_color} won"
     true
   end
