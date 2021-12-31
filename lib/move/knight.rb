@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Move
+class Move
   # knight moves in ls
-  class Knight < Base
+  class Knight < Move
     def position_candidates
       directions.map do |direction|
         position.go(*direction)

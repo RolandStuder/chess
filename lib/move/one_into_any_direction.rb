@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Move
+class Move
   # king moves
-  class OneIntoAnyDirection < Base
+  class OneIntoAnyDirection < Move
     def position_candidates
       directions.map do |direction|
         position.go(*direction)

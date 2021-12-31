@@ -49,7 +49,7 @@ class Board
   end
 
   def move(origin, target)
-    current_move = Move::Base.from_board(self, origin, target)
+    current_move = Move.from_board(self, origin, target)
     perform_board_operations(current_move.operations_on_board)
     @en_passant_target_position = current_move.en_passant_target_positions
   end

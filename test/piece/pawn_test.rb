@@ -20,5 +20,10 @@ class Piece
       board.place(Pawn.new(:white), "D5")
       assert board.legal_target_positions_for("C6").include?(Position.parse("D5"))
     end
+
+    def test_pawn_can_promote
+      board = Board.from_fen("8/6P1/8/8/8/8/3p4/8 w - - 0 1")
+      # OneDown.new(self, origin, target)
+    end
   end
 end

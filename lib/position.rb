@@ -7,6 +7,8 @@ class Position
   @registry = {}
 
   attr :letter, :number
+  alias rank number
+  alias file letter
 
   # we want "A1" to always return the same object, so we can
   # do stuff like subtracting arrays,
@@ -17,6 +19,7 @@ class Position
     @registry[as_string] = super
   end
 
+  # rubocop:disable Metrics/CyclomaticComplexity:
   def self.parse(input)
     return nil if input.nil?
     return parse_array(input) if input.is_a? Array
@@ -30,6 +33,7 @@ class Position
 
     new(letter, number)
   end
+  # rubocop:enable Metrics/CyclomaticComplexity:
 
   def to_s
     letter + number.to_s

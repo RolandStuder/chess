@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Move
+class Move
   # unlimited vertical movement for a piece
-  class Vertical < Base
+  class Vertical < Move
     def position_candidates
       legal_target_positions_in_line(position.positions_upwards) +
         legal_target_positions_in_line(position.positions_downwards)

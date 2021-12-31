@@ -2,7 +2,7 @@
 
 require "minitest/autorun"
 
-module Move
+class Move
   class OneIntoAnyDirectionTest < Minitest::Test
     def test_move_right
       board = Board.new

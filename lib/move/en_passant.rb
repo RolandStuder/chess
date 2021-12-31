@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Move
+class Move
   # unlimited horizontal movement for a piece
-  class EnPassant < Base
+  class EnPassant < Move
     def position_candidates
       directions = piece.white? ? white_directions : black_directions
       if board.en_passant_target_position && (directions.compact.include? board.en_passant_target_position)

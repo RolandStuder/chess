@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Move
+class Move
   # unlimited horizontal movement for a piece
-  class Castle < Base
+  class Castle < Move
     def position_candidates
       if disallowed?
         []

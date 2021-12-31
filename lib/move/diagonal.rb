@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Move
+class Move
   # unlimited horizontal movement for a piece
-  class Diagonal < Base
+  class Diagonal < Move
     def position_candidates
       [
         position.positions_up_left,

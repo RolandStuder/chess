@@ -80,7 +80,7 @@ class BoardTest < Minitest::Test
 
   def test_get_move_type
     board = Board.with_setup
-    assert Move::Vertical, board.send(:find_move_type, "C7", "C5")
+    assert Move::Vertical, Move.from_board(board, "C7", "C5")
   end
 
   def test_stale_mate

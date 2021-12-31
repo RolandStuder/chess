@@ -2,7 +2,7 @@
 
 require "minitest/autorun"
 
-module Move
+class Move
   class TwoDowTest < Minitest::Test
     def test_move_down
       board = Board.new

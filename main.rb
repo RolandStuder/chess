@@ -17,7 +17,6 @@ require_relative 'lib/piece/knight'
 require_relative 'lib/piece/pawn'
 require_relative 'lib/piece/king'
 
-require_relative 'lib/move/base'
 require_relative 'lib/move/horizontal'
 require_relative 'lib/move/vertical'
 require_relative 'lib/move/diagonal'

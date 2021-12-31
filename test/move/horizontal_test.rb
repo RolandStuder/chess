@@ -2,7 +2,7 @@
 
 require "minitest/autorun"
 
-module Move
+class Move
   class HorizontalTest < Minitest::Test
     def test_legal_move_blocked_by_other_piece_to_the_left
       board = Board.new

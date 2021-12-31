@@ -2,7 +2,7 @@
 
 require "minitest/autorun"
 
-module Move
+class Move
   class EnPassantTest < Minitest::Test
     def test_en_passant_square_is_nil_after_normal_move
       board = Board.new

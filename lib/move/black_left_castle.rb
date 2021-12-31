@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Move
+class Move
   # black queen side castle
   class BlackLeftCastle < Castle
     private

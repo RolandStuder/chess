@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-module Move
+class Move
   # move down two squares if not occupied
-  class TwoDown < Base
+  class TwoDown < Move
     def position_candidates
       if no_piece_in_the_way? && target_piece_not_occupied?
         [position.down.down]

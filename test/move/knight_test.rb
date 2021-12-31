@@ -2,7 +2,7 @@
 
 require "minitest/autorun"
 
-module Move
+class Move
   class KnightTest < Minitest::Test
     def test_knight_move
       board = Board.new
