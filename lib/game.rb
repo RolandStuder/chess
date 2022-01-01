@@ -21,8 +21,8 @@ class Game
     @display = Display.new(@board)
     @half_turns = half_turns
     @turn = turn
-    @white_player = white_player || TestPlayer.new(:white)
-    @black_player = black_player || TestPlayer.new(:black)
+    @white_player = white_player || Player.new(:white)
+    @black_player = black_player || Player.new(:black)
     @repetitions_history = Hash.new(0)
     @current_player = (active_color == :white ? @white_player : @black_player)
   end
@@ -32,7 +32,6 @@ class Game
   def play
     loop do
       system("clear")
-      puts "Turn #{@turn} Half-turn-clock: #{@half_turns}"
       puts display.board
       puts "You are in Check!" if board.in_check?(current_player.color)
       input = current_player.prompt_for_move(board)

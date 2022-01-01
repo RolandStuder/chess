@@ -9,13 +9,10 @@ Implemented in Ruby
 
 ## TODO:
 
-* implement player, maybe I'll jump that
 * add 5D blindfolded variant for @timato
-* save game state
-* implement promotion (first situation that needs an input)
-* Implement draw situations
-  * threefold repetition, this actually needs the game class
-  * 50 move rule, this needs the game class
+* save game state (not done, but would be easy thanks to fen serializer)
+* write a bit about the journey and possibly interesting subject
+* write about where I think there is room for improvements 
 
 ## Testing
 
