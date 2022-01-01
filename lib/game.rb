@@ -2,7 +2,7 @@
 
 # running an actual game, containing the main game loop
 class Game
-  attr_reader :board, :display
+  attr_reader :board, :display, :current_player
 
   def self.start
     new.play
@@ -20,6 +20,9 @@ class Game
     @display = Display.new(@board)
     @half_turns = 0
     @turns = 0
+    @white_player = Player.new(:white)
+    @black_player = Player.new(:black)
+    @current_player = @white_player
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -27,15 +30,13 @@ class Game
     loop do
       system("clear")
       puts display.board
-      puts "You are in Check!" if board.in_check?(@active_color)
-      puts "#{@active_color.capitalize} your move"
-      print "> "
-      input = gets.chomp
+      puts "You are in Check!" if board.in_check?(current_player.color)
+      input = current_player.prompt_for_move
       next unless valid_input?(input)
       next unless valid_move?(input)
 
       move = board.move(input[0, 2], input[2, 2])
-      @turns += 1 if @active_color == white
+      @turns += 1 if current_player.color == :white
       @half_turns += 1
       @half_turns = 0 if move.resets_half_turn_clock?
 
@@ -43,39 +44,39 @@ class Game
       break if checkmate?
       break if stalemate?
 
-      switch_active_color
+      switch_current_player
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
-  def switch_active_color
-    @active_color = opponent_color
+  def switch_current_player
+    @current_player = opponent_player
   end
 
-  def opponent_color
-    @active_color == :white ? :black : :white
+  def opponent_player
+    @current_player.color == :white ? @black_player : @white_player
   end
 
   def stalemate?
-    return false unless board.in_stalemate?(opponent_color)
+    return false unless board.in_stalemate?(opponent_player.color)
 
     puts "Draw (stalemate)"
     true
   end
 
   def checkmate?
-    return false unless board.in_checkmate?(opponent_color)
+    return false unless board.in_checkmate?(opponent_player.color)
 
     puts "#{@active_color} won"
     true
   end
 
   def valid_move?(input)
-    return true if board.valid_move_for?(@active_color, input[0, 2], input[2, 2])
+    return true if board.valid_move_for?(current_player.color, input[0, 2], input[2, 2])
 
-    puts "not a valid move for #{@active_color}"
+    puts "not a valid move for #{current_player.color}"
     sleep 2
     false
   end
@@ -97,8 +98,7 @@ class Game
     color = square.piece.color
     choice = ""
     loop do
-      puts "Your pawn gets a promotion, please choose: (Q)ueen, (R)ook, K(N)ight, (B)ishop."
-      choice = gets.chomp
+      choice = current_player.prompt_for_promotion
       break if choice.size == 1 && "QRNB".include?(choice.upcase)
     end
     choice = color == :black ? choice.downcase : choice.upcase
