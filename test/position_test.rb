@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "minitest/autorun"
-require_relative '../main'
+require_relative '../chess'
 
 class PositionTest < Minitest::Test
   def test_parse_position_from_string

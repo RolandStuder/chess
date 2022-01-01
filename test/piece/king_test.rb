@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "minitest/autorun"
-require_relative '../../main'
 class Piece
   class KingTest < Minitest::Test
     def test_two_kings_dont_blow_up_check_for_in_check

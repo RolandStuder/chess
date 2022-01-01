@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "minitest/autorun"
-require_relative '../main'
+require_relative '../chess'
 
 class DisplayTest < Minitest::Test
   def test_show_stuff
