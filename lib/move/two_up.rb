@@ -11,6 +11,10 @@ class Move
       end
     end
 
+    def en_passant_target_positions
+      position.up
+    end
+
     def resets_half_turn_clock?
       true
     end
