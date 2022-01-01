@@ -37,7 +37,6 @@ class Move
       assert_equal Pawn.new(:black), board.get("H3").piece
 
       # other pawn captured
-      assert_includes board.captured_pieces, Pawn.new(:white)
       assert_nil board.get("H4").piece
     end
 

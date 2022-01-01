@@ -26,6 +26,10 @@ class Game
       ].join(" ")
     end
 
+    def to_threefold_repetition_digest
+      ranks + current_player + castling_rights + en_passant_target_square.to_s
+    end
+
     private
 
     def current_player

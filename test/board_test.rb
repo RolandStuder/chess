@@ -38,7 +38,6 @@ class BoardTest < Minitest::Test
     board.place(other_piece, "A2")
 
     board.move("A1", "A2")
-    assert_includes board.captured_pieces, other_piece
     assert_equal piece, board.get("A2").piece
   end
 

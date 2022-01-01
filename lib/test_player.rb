@@ -1,9 +1,13 @@
+# frozen_string_literal: true
+
+# a test player that will perform moves passed into it one after another
 class TestPlayer < Player
   attr_reader :color
 
   def initialize(color, moves: [])
     @color = color
-    @moves = []
+    @moves = moves
+    super
   end
 
   def prompt_for_move(board)

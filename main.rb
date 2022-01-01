@@ -37,6 +37,10 @@ require_relative 'lib/move/one_up'
 require_relative 'lib/move/two_down'
 require_relative 'lib/move/two_up'
 
-# Game.from_fen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+# Game.from_fen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1").play
 # Game.from_fen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
 
+white_player = TestPlayer.new(:white, moves: %w[F3F4 F4F3] * 3)
+black_player = TestPlayer.new(:black, moves: %w[C7C6 C6C7] * 3)
+game = Game.from_fen("1k6/2r5/8/8/8/5R2/8/6K1 w - - 0 1", white_player: white_player, black_player: black_player)
+game.play

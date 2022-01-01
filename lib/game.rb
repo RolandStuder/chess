@@ -3,32 +3,36 @@
 # running an actual game, containing the main game loop
 class Game
   attr_reader :board, :display, :current_player, :half_turns, :turn
+
   def self.start
     new.play
   end
 
-  def self.from_fen(string)
+  def self.from_fen(string, **options)
     board = Board.from_fen(string)
     active_color = string.split[1] == "w" ? :white : :black
-    new(board, active_color: active_color, half_turns: string.split[4], turn: string.split[5])
+    new(board, active_color: active_color, half_turns: string.split[4].to_i, turn: string.split[5].to_i, **options)
   end
 
-  def initialize(board = nil, active_color: :white, white_player: nil, black_player: nil, half_turns: 0, turn: 0)
+  # rubocop:disable Metrics/ParameterLists
+  def initialize(board = nil, active_color: :white, white_player: nil, black_player: nil, half_turns: 0, turn: 1)
     @board = board || Board.with_setup
     @active_color = active_color
     @display = Display.new(@board)
-    @half_turns = 0
-    @turn = 1
+    @half_turns = half_turns
+    @turn = turn
     @white_player = white_player || TestPlayer.new(:white)
     @black_player = black_player || TestPlayer.new(:black)
+    @repetitions_history = Hash.new(0)
     @current_player = (active_color == :white ? @white_player : @black_player)
   end
+  # rubocop:enable Metrics/ParameterLists
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def play
     loop do
       system("clear")
-      puts "Turn #@turn Half-turn-clock: #@half_turns"
+      puts "Turn #{@turn} Half-turn-clock: #{@half_turns}"
       puts display.board
       puts "You are in Check!" if board.in_check?(current_player.color)
       input = current_player.prompt_for_move(board)
@@ -42,6 +46,7 @@ class Game
       @half_turns = 0 if move.resets_half_turn_clock?
 
       promote_with_move(move) if move.promotion_available?
+
       break if checkmate?
       break if draw?
 
@@ -49,6 +54,10 @@ class Game
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+
+  def threefold_repetition_digest
+    Game::FENSerializer.new(self).to_threefold_repetition_digest
+  end
 
   private
 
@@ -61,7 +70,7 @@ class Game
   end
 
   def draw?
-    stalemate? || fifty_turns_passed?
+    stalemate? || fifty_turns_passed? || threefold_repetition?
   end
 
   def stalemate?
@@ -75,6 +84,14 @@ class Game
     return false unless @half_turns >= 100
 
     puts "Draw (50 turns without capture or pawn advancement)"
+    true
+  end
+
+  def threefold_repetition?
+    @repetitions_history[threefold_repetition_digest] += 1
+    return false unless @repetitions_history.values.any? { |count| count >= 3 }
+
+    puts "Draw (Threefold repetition)"
     true
   end
 

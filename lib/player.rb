@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
+# Simple player class that handles getting input from a player
 class Player
   attr_reader :color
 
-  def initialize(color)
+  def initialize(color, moves: nil)
     @color = color
   end
 
