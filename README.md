@@ -1,26 +1,26 @@
 # Chess
 
-Implemented in Ruby
+Implemented in Ruby, the interface is minimal, I was more interested in the general
+way of implementing the game logic and rules.
 
-## Principles
+to run the game
 
-* Keep public methods to an absolute minimum
-* Try to decouple classes as much as possible
+* ``bundle install``
+* ``ruby main.rb``
 
-## TODO:
+## TODO / State:
 
 * add 5D blindfolded variant for @timato
 * save game state (not done, but would be easy thanks to fen serializer)
 * write a bit about the journey and possibly interesting subject
 * write about where I think there is room for improvements 
+* see, how I can get out of relative requires
+
+There are certainly areas of improvments, but overall I like the design
+
+Note, that I so far haven't done any refactors, just to clean up. I only refactored when I needed
+the code to make space for some new requirements.
 
 ## Testing
 
 run `rake test`
-
-## Blockage I had
-
-## People to inform
-
-* Chook? 
-* Eduardo06sp#6656
