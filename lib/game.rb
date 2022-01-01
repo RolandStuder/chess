@@ -2,7 +2,7 @@
 
 # running an actual game, containing the main game loop
 class Game
-  attr_reader :board, :display, :current_player
+  attr_reader :board, :display, :current_player, :half_turns, :turn
   def self.start
     new.play
   end
@@ -10,18 +10,18 @@ class Game
   def self.from_fen(string)
     board = Board.from_fen(string)
     active_color = string.split[1] == "w" ? :white : :black
-    new(board, active_color: active_color).play
+    new(board, active_color: active_color, half_turns: string.split[4], turn: string.split[5])
   end
 
-  def initialize(board = nil, active_color: :white, white_player: nil, black_player: nil)
+  def initialize(board = nil, active_color: :white, white_player: nil, black_player: nil, half_turns: 0, turn: 0)
     @board = board || Board.with_setup
     @active_color = active_color
     @display = Display.new(@board)
     @half_turns = 0
-    @turn = 0
+    @turn = 1
     @white_player = white_player || TestPlayer.new(:white)
     @black_player = black_player || TestPlayer.new(:black)
-    @current_player = @white_player
+    @current_player = (active_color == :white ? @white_player : @black_player)
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity

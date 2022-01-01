@@ -1,31 +1,36 @@
 # frozen_string_literal: true
 
-class Board
+class Game
   # converts a board to a FEN code, will need to be extended to work for games
   class FENSerializer
     attr_reader :board
 
-    def self.from_board(board)
-      fen = new(board)
+    def self.from_game(game)
+      fen = new(game)
       fen.to_s
     end
 
-    def initialize(board)
-      @board = board
+    def initialize(game)
+      @game = game
+      @board = game.board
     end
 
     def to_s
       [
         ranks,
-        "w", # must come from a game
+        current_player, # must come from a game
         castling_rights,
         en_passant_target_square,
-        "0", # must come from a game
-        "1" # must come from a game
+        @game.half_turns, # must come from a game
+        @game.turn # must come from a game
       ].join(" ")
     end
 
     private
+
+    def current_player
+      @game.current_player.color.to_s.chars.first
+    end
 
     def ranks
       @board.squares.each_slice(8).to_a.map do |file|

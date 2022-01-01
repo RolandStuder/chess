@@ -4,7 +4,7 @@ require_relative 'lib/square'
 require_relative 'lib/fen'
 require_relative 'lib/move'
 require_relative 'lib/board'
-require_relative 'lib/board/fen_serializer'
+require_relative 'lib/game/fen_serializer'
 require_relative 'lib/position'
 require_relative 'lib/display'
 require_relative 'lib/game'
@@ -37,5 +37,6 @@ require_relative 'lib/move/one_up'
 require_relative 'lib/move/two_down'
 require_relative 'lib/move/two_up'
 
-Game.from_fen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
 # Game.from_fen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+# Game.from_fen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+
