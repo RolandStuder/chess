@@ -52,7 +52,7 @@ class Board
     current_move = Move.from_board(self, origin, target)
     perform_board_operations(current_move.operations_on_board)
     @en_passant_target_position = current_move.en_passant_target_positions
-    promote(target) if current_move.promotion_available?
+    current_move
   end
 
   def valid_move_for?(color, origin, target)
@@ -100,13 +100,6 @@ class Board
 
     @captured_pieces << target_square.piece.dup
     target_square.piece = nil
-  end
-
-  def promote(target)
-    square = get(target)
-    color = square.piece.color
-    # TODO: make an acutal way to choose you promotion
-    square.piece = [Rook, Queen].sample.send(:new, color)
   end
 
   def perform_board_operations(operations)

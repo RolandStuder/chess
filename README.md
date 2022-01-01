@@ -23,3 +23,7 @@ run `rake test`
 
 ## Blockage I had
 
+## People to inform
+
+* Chook? 
+* Eduardo06sp#6656

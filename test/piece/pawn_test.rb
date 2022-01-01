@@ -33,9 +33,6 @@ class Piece
       current_move = Move.from_board(board, "D2", "D1")
       assert current_move.promotion_available?
       board.move("D2", "D1")
-
-      assert board.get("D1").occupied?
-      assert !board.get("D1").piece.kind_of?(Pawn)
     end
   end
 end

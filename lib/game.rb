@@ -32,7 +32,8 @@ class Game
       next unless valid_input?(input)
       next unless valid_move?(input)
 
-      board.move(input[0, 2], input[2, 2])
+      move = board.move(input[0, 2], input[2, 2])
+      promote_with_move(move) if move.promotion_available?
       break if checkmate?
       break if stalemate?
 
@@ -80,4 +81,22 @@ class Game
     sleep 3
     false
   end
+
+  # rubocop:disable  Metrics/AbcSize, Metrics/MethodLength
+  def promote_with_move(move)
+    system("clear")
+    puts display.board
+
+    square = board.get(move.target)
+    color = square.piece.color
+    choice = ""
+    loop do
+      puts "Your pawn gets a promotion, please choose: (Q)ueen, (R)ook, K(N)ight, (B)ishop."
+      choice = gets.chomp
+      break if choice.size == 1 && "QRNB".include?(choice.upcase)
+    end
+    choice = color == :black ? choice.downcase : choice.upcase
+    square.piece = Piece.from_fen(choice)
+  end
+  # rubocop:enable  Metrics/AbcSize, Metrics/MethodLength
 end
