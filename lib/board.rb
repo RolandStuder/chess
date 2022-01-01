@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # Board serves to keep the sate, of where all the pieces are
-# rubocop:disable Metrics/ClassLength
 class Board
   attr_reader :captured_pieces, :squares
   attr_accessor :en_passant_target_position
@@ -50,7 +49,8 @@ class Board
 
   def move(origin, target)
     current_move = Move.from_board(self, origin, target)
-    perform_board_operations(current_move.operations_on_board)
+    capture(current_move.capture_target)
+    diplace_pieces(current_move.piece_displacements)
     @en_passant_target_position = current_move.en_passant_target_positions
     current_move
   end
@@ -95,32 +95,24 @@ class Board
 
   private
 
-  def capture(target_square)
+  def capture(target_posittion)
+    target_square = get(target_posittion)
     return false if target_square.empty?
 
     @captured_pieces << target_square.piece.dup
     target_square.piece = nil
   end
 
-  def perform_board_operations(operations)
-    operations.each do |operation|
-      case operation[:type]
-      when :capture
-        capture(get(operation[:target]))
-      when :move
-        move_operation(operation[:origin], operation[:target])
-      end
+  def diplace_pieces(displacements)
+    displacements.each do |displacement|
+      origin_square = get(displacement[:origin])
+      target_square = get(displacement[:target])
+
+      piece = origin_square.piece
+      piece.moved = true
+      target_square.piece = piece
+      origin_square.piece = nil
     end
-  end
-
-  def move_operation(origin, target)
-    origin_square = get(origin)
-    target_square = get(target)
-
-    piece = origin_square.piece
-    piece.moved = true
-    target_square.piece = piece
-    origin_square.piece = nil
   end
 
   def create_squares
@@ -136,4 +128,3 @@ class Board
     @squares.find { |square| square.piece == King.new(color) }
   end
 end
-# rubocop:enable Metrics/ClassLength

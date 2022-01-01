@@ -28,9 +28,9 @@ class Board
     private
 
     def ranks
-      @board.squares.reverse.each_slice(8).to_a.map do |file|
+      @board.squares.each_slice(8).to_a.map do |file|
         file_of_squares_to_fen(file)
-      end.join("/")
+      end.reverse.join("/")
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -45,7 +45,7 @@ class Board
           result += "1"
         end
       end
-      result.reverse
+      result
     end
     # rubocop:enable Metrics/MethodLength
 

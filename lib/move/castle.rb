@@ -11,10 +11,10 @@ class Move
       end
     end
 
-    def operations_on_board
+    def piece_displacements
       [
-        { type: :move, origin: position, target: target },
-        { type: :move, origin: rook_origin, target: rook_target }
+        { origin: position, target: target },
+        { origin: rook_origin, target: rook_target }
       ]
     end
 

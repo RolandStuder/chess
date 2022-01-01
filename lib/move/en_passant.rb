@@ -12,10 +12,9 @@ class Move
       end
     end
 
-    def operations_on_board
+    def piece_displacements
       [
-        { type: :capture, target: capture_target },
-        { type: :move, origin: position, target: target }
+        { origin: position, target: target }
       ]
     end
 

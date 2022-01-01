@@ -18,9 +18,11 @@ class Game
     @board = board || Board.with_setup
     @active_color = active_color
     @display = Display.new(@board)
+    @half_turns = 0
+    @turns = 0
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength:
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
   def play
     loop do
       system("clear")
@@ -32,7 +34,9 @@ class Game
       next unless valid_input?(input)
       next unless valid_move?(input)
 
+      @turns += 1 if @active_color == white
       move = board.move(input[0, 2], input[2, 2])
+
       promote_with_move(move) if move.promotion_available?
       break if checkmate?
       break if stalemate?
@@ -40,7 +44,7 @@ class Game
       switch_active_color
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength:
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
 
   private
 

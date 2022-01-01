@@ -22,11 +22,14 @@ class Move
   end
 
   # tells the board what to do after a move
-  def operations_on_board
+  def piece_displacements
     [
-      { type: :capture, target: target },
-      { type: :move, origin: position, target: target }
+      { origin: position, target: target }
     ]
+  end
+
+  def capture_target
+    target
   end
 
   def legal_target_positions
@@ -50,6 +53,10 @@ class Move
   def promotion_available?
     false
   end
+
+  # only turns that further pawns or are a capture reset the half turn clock
+  # this is to draw after 100 half moves, 50 moves
+  def resets_half_turn_clock; end
 
   private
 
