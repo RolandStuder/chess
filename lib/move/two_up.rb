@@ -11,6 +11,10 @@ class Move
       end
     end
 
+    def resets_half_turn_clock?
+      true
+    end
+
     private
 
     def no_piece_in_the_way?

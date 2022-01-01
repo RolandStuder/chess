@@ -10,5 +10,9 @@ class Move
     def promotion_available?
       target&.rank == 1
     end
+
+    def resets_half_turn_clock?
+      true
+    end
   end
 end

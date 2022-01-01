@@ -56,7 +56,9 @@ class Move
 
   # only turns that further pawns or are a capture reset the half turn clock
   # this is to draw after 100 half moves, 50 moves
-  def resets_half_turn_clock; end
+  def resets_half_turn_clock?
+    board.get(capture_target).occupied?
+  end
 
   private
 

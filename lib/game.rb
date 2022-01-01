@@ -22,7 +22,7 @@ class Game
     @turns = 0
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def play
     loop do
       system("clear")
@@ -34,8 +34,10 @@ class Game
       next unless valid_input?(input)
       next unless valid_move?(input)
 
-      @turns += 1 if @active_color == white
       move = board.move(input[0, 2], input[2, 2])
+      @turns += 1 if @active_color == white
+      @half_turns += 1
+      @half_turns = 0 if move.resets_half_turn_clock?
 
       promote_with_move(move) if move.promotion_available?
       break if checkmate?
@@ -44,7 +46,7 @@ class Game
       switch_active_color
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   private
 
