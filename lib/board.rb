@@ -101,6 +101,7 @@ class Board
 
     @captured_pieces << target_square.piece.dup
     target_square.piece = nil
+    true
   end
 
   def diplace_pieces(displacements)

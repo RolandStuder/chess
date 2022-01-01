@@ -29,7 +29,7 @@ class Move
     end
 
     def capture_target
-      piece.black? ? board.en_passant_target_position.up : board.en_passant_target_position.down
+      piece.black? ? board.en_passant_target_position&.up : board.en_passant_target_position&.down
     end
   end
 end

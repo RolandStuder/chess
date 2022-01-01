@@ -3,7 +3,6 @@
 # running an actual game, containing the main game loop
 class Game
   attr_reader :board, :display, :current_player
-
   def self.start
     new.play
   end
@@ -14,14 +13,14 @@ class Game
     new(board, active_color: active_color).play
   end
 
-  def initialize(board = nil, active_color: :white)
+  def initialize(board = nil, active_color: :white, white_player: nil, black_player: nil)
     @board = board || Board.with_setup
     @active_color = active_color
     @display = Display.new(@board)
     @half_turns = 0
-    @turns = 0
-    @white_player = Player.new(:white)
-    @black_player = Player.new(:black)
+    @turn = 0
+    @white_player = white_player || TestPlayer.new(:white)
+    @black_player = black_player || TestPlayer.new(:black)
     @current_player = @white_player
   end
 
@@ -29,20 +28,22 @@ class Game
   def play
     loop do
       system("clear")
+      puts "Turn #@turn Half-turn-clock: #@half_turns"
       puts display.board
       puts "You are in Check!" if board.in_check?(current_player.color)
-      input = current_player.prompt_for_move
+      input = current_player.prompt_for_move(board)
       next unless valid_input?(input)
       next unless valid_move?(input)
 
       move = board.move(input[0, 2], input[2, 2])
-      @turns += 1 if current_player.color == :white
+
+      @turn += 1 if current_player.color == :white
       @half_turns += 1
       @half_turns = 0 if move.resets_half_turn_clock?
 
       promote_with_move(move) if move.promotion_available?
       break if checkmate?
-      break if stalemate?
+      break if draw?
 
       switch_current_player
     end
@@ -59,10 +60,21 @@ class Game
     @current_player.color == :white ? @black_player : @white_player
   end
 
+  def draw?
+    stalemate? || fifty_turns_passed?
+  end
+
   def stalemate?
     return false unless board.in_stalemate?(opponent_player.color)
 
     puts "Draw (stalemate)"
+    true
+  end
+
+  def fifty_turns_passed?
+    return false unless @half_turns >= 100
+
+    puts "Draw (50 turns without capture or pawn advancement)"
     true
   end
 
@@ -77,7 +89,7 @@ class Game
     return true if board.valid_move_for?(current_player.color, input[0, 2], input[2, 2])
 
     puts "not a valid move for #{current_player.color}"
-    sleep 2
+    sleep current_player.sleep_duration
     false
   end
 
@@ -85,7 +97,7 @@ class Game
     return true if Position.parse(input[0, 2]) && Position.parse(input[2, 2])
 
     puts "not a valid input use format 'a1b2' to perform a move"
-    sleep 3
+    sleep current_player.sleep_duration
     false
   end
 

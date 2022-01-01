@@ -19,6 +19,7 @@ class Move
     @position = Position.parse(position)
     @target = Position.parse(target)
     @piece = board.get(position).piece
+    @captures_piece = board.get(capture_target).occupied? if capture_target
   end
 
   # tells the board what to do after a move
@@ -26,6 +27,11 @@ class Move
     [
       { origin: position, target: target }
     ]
+  end
+
+  # set on initializing, as board may change after
+  def captures_piece?
+    @captures_piece
   end
 
   def capture_target
@@ -57,7 +63,7 @@ class Move
   # only turns that further pawns or are a capture reset the half turn clock
   # this is to draw after 100 half moves, 50 moves
   def resets_half_turn_clock?
-    board.get(capture_target).occupied?
+    captures_piece?
   end
 
   private

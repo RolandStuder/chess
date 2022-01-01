@@ -5,7 +5,11 @@ class Player
     @color = color
   end
 
-  def prompt_for_move
+  def sleep_duration
+    2
+  end
+
+  def prompt_for_move(_board)
     puts "#{@color.capitalize} your move"
     print "> "
     gets.chomp

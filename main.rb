@@ -9,6 +9,7 @@ require_relative 'lib/position'
 require_relative 'lib/display'
 require_relative 'lib/game'
 require_relative 'lib/player'
+require_relative 'lib/test_player'
 
 require_relative 'lib/piece'
 require_relative 'lib/piece/rook'
@@ -36,5 +37,5 @@ require_relative 'lib/move/one_up'
 require_relative 'lib/move/two_down'
 require_relative 'lib/move/two_up'
 
-Game.from_fen("8/6P1/1r6/8/8/8/3p4/8 w - - 0 1")
+Game.from_fen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
 # Game.from_fen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
