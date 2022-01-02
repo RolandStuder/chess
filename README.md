@@ -8,6 +8,10 @@ to run the game
 * ``bundle install``
 * ``ruby main.rb``
 
+You can also start a game from a FEN notation like:
+
+``ruby main.rb "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2"``
+
 ## TODO / State:
 
 * add 5D blindfolded variant for @timato
