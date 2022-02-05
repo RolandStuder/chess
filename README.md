@@ -55,7 +55,6 @@ down some notes about what classes I probably need. And how to deal with this co
 thinking to maybe have a `MoveValidator`, because neither the board nor the piece felt like the right place to 
 put the responsibility of knowing all those rules.
 
-As basically everything happens on the board, it felt like this is where I needed to start.
 
 ### A note on testing
 
@@ -64,6 +63,8 @@ MiniTest test cases without an issue. Added Minitest in my
 [second commit](https://github.com/RolandStuder/chess/commit/f7120c2090f142b83a3ea31360eafd69b78b1823).
 
 ### Minimal board
+
+As basically everything happens on the board, it felt like this is where I needed to start.
 
 So my [third commit](https://github.com/RolandStuder/chess/commit/bcbe44c94df5d8bd9bdea7b97cbee5fc77246cc2) 
 I added a board class, a field class and a test to get a field from the board.
